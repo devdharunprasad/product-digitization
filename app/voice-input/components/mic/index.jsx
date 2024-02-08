@@ -24,13 +24,15 @@ let handleSpeech
    handleSpeech = async () => {
     setSpeechStatus("Listening!");
     recognition.start();
-
+    setError(null)
+    setTranscript("")
     // start recognition
   };
 
   recognition.onspeechend = function () {
     // when user is done speaking
     recognition.stop();
+    setIsLoading(true)
     setSpeechStatus("Tap to speak!");
   };
 
@@ -75,7 +77,7 @@ let handleSpeech
       <p className="text-white">{speechStatus}</p>
       </>}
       {isLoading && <p className="text-white">Processing...</p>}
-      {error && <p className="text-red-700 font-semibold">{error}</p>}
+      {error && <p className="text-red-700 font-semibold">{error} Please try again</p>}
 
       <p className="text-white">{transcript}</p>
     </section>
