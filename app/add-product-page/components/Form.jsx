@@ -1,6 +1,7 @@
 "use client"
 import { useProductStore } from '@/app/zustand/store'
 import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -24,6 +25,7 @@ const FormSection = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='center-section flex flex-col gap-5'>
+        <Image src = {product_store?.image || "/default-product.png"} width={200} height={200} alt = {product_store?.name} className='mx-auto' />
         <label>
             <span className='mb-2'>Item Name</span>
             <input type = "text" defaultValue={product_store?.name} placeholder='Item Name' className='border border-black w-full h-14 px-3 rounded-lg' {...register("name", {required : true})} />

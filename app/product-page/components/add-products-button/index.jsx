@@ -38,6 +38,7 @@ const AddProducts = () => {
         if (data) {
           router.push("/add-product-page");
         }
+        console.log(data)
         addProduct(data);
       }
     } catch (err) {
