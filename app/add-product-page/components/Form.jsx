@@ -48,7 +48,7 @@ const FormSection = () => {
             </label>
             <div className='mt-5 flex flex-wrap gap-2'>
             {categoryList && categoryList?.length > 0 && categoryList.map(list => (
-                <Badge variant="outline" className="px-3">{list} </Badge>
+                <Badge variant="outline" className="px-3" key = {list}>{list} </Badge>
             ))}
             </div>
 
