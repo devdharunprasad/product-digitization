@@ -8,7 +8,7 @@ const { cookies } = require("next/headers")
     const password = cookieStore.has("password")
         console.log({username, password})
     if(!username && !password){
-        return NextResponse.redirect(`http://localhost:3000/login`)
+        return NextResponse.redirect(`${process.env.URL}/login`)
     }
 }
 export const config = {
