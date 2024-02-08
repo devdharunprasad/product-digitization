@@ -6,9 +6,7 @@ import { Ear, Microphone } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 
 const Mic = () => {
-  const SpeechRecognition =
-    window?.SpeechRecognition || window?.webkitSpeechRecognition;
-  const recognition = new SpeechRecognition();
+
 
   const [transcript, setTranscript] = useState("");
   const [speechStatus, setSpeechStatus] = useState("Tap to speak!");
@@ -18,7 +16,12 @@ const Mic = () => {
   const { product_store, addProduct } = useProductStore((state) => state);
 
   const router = useRouter();
-  const handleSpeech = async () => {
+let handleSpeech
+  if(typeof window !== "undefined"){
+    const SpeechRecognition =
+      window?.SpeechRecognition || window?.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+   handleSpeech = async () => {
     setSpeechStatus("Listening!");
     recognition.start();
 
@@ -54,6 +57,7 @@ const Mic = () => {
 
     // var confidence = event.results[0][0].confidence;
   };
+}
   return (
     <section className="h-screen flex flex-col gap-5 justify-center items-center bg-primary_blue">
       <div
