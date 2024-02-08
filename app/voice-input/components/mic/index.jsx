@@ -1,4 +1,5 @@
 "use client";
+import LoadingPopup from "@/app/shared/loading/loading-popup";
 import { useProductStore } from "@/app/zustand/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -76,7 +77,7 @@ let handleSpeech
       </div>
       <p className="text-white">{speechStatus}</p>
       </>}
-      {isLoading && <p className="text-white">Processing...</p>}
+      {isLoading && <LoadingPopup/>}
       {error && <p className="text-red-700 font-semibold">{error} Please try again</p>}
 
       <p className="text-white">{transcript}</p>

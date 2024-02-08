@@ -1,5 +1,6 @@
 "use client";
 
+import LoadingPopup from "@/app/shared/loading/loading-popup";
 import { useProductStore } from "@/app/zustand/store";
 import {
   Popover,
@@ -9,7 +10,7 @@ import {
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Camera, Microphone, Plus, UploadSimple } from "phosphor-react";
+import { Camera, CircleNotch, Microphone, Plus, UploadSimple } from "phosphor-react";
 import React, { useEffect, useState } from "react";
 
 const AddProducts = () => {
@@ -53,10 +54,11 @@ const AddProducts = () => {
         <p className="text-center text-red-400 font-semibold">{error}</p>
       )}
       <Popover className="flex justify-center items-center gap-3 ">
+      
         <PopoverTrigger className="flex items-center justify-center gap-3 text-white h-12 bg-primary_blue border w-8/12  px-5 py-2 mx-auto rounded-full">
           {isLoading ? (
-            <p>Loading...</p>
-          ) : (
+       <LoadingPopup/> 
+      ) : (
             <>
               <span>Add Products</span>
               <Plus size={20} color="white" />{" "}
