@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form'
 const FormSection = () => {
     const {product_store} = useProductStore(state => state)
 
-    const [categoryList, setCategoryList] = useState(product_store?.category)
+    const [categoryList, setCategoryList] = useState([product_store?.category] || [])
     const [category, setCategory] = useState("")
     console.log({categoryList})
     console.log({category})
@@ -47,7 +47,7 @@ const FormSection = () => {
                 }>Enter</span>
             </label>
             <div className='mt-5 flex flex-wrap gap-2'>
-            {categoryList?.length > 0 && categoryList.map(list => (
+            {categoryList && categoryList?.length > 0 && categoryList.map(list => (
                 <Badge variant="outline" className="px-3">{list} </Badge>
             ))}
             </div>
