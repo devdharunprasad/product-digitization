@@ -1,13 +1,11 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { login } from "../utils/login";
-import { useFormStatus } from 'react-dom'
-
+import SubmitButton from "./SubmitButton";
 
 const LoginForm = () => {
-const form = useFormStatus()
-console.log(form)
+
   return (
     <section className="center-section">
       <h2 className="text-xl mb-4 text-center">Login</h2>
@@ -20,20 +18,17 @@ console.log(form)
           name="username"
           placeholder="Name"
           className="border border-black h-12 w-full px-2 rounded-md"
+          required
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
           className="border border-black h-12 w-full px-2 rounded-md"
+          required
         />
-        <Button
-        // aria-disabled = {pending}
-          variant="blue"
-          className="bg-primary_blue text-white rounded-full px-6"
-        >
-          Submit
-        </Button>
+      
+      <SubmitButton/>
       </form>
     </section>
   );
