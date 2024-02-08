@@ -36,6 +36,7 @@ let handleSpeech
 
   // This runs when the speech recognition service returns result
   recognition.onresult = async function (event) {
+    setSpeechStatus("Tap to speak!")
     setTranscript(event.results[0][0].transcript);
     setIsLoading(true);
     setError(null);
@@ -51,6 +52,7 @@ let handleSpeech
       addProduct(data);
       router.push("/add-product-page");
     } catch (err) {
+      setError(err.message)
     } finally {
       setIsLoading(false);
     }
@@ -60,7 +62,7 @@ let handleSpeech
 }
   return (
     <section className="h-screen flex flex-col gap-5 justify-center items-center bg-primary_blue">
-      <div
+     {!isLoading && <> <div
         className="border-2 border-white rounded-full w-40 h-40 flex justify-center items-center p-5"
         onClick={handleSpeech}
       >
@@ -71,7 +73,9 @@ let handleSpeech
         )}
       </div>
       <p className="text-white">{speechStatus}</p>
-      {isLoading && <p>Loading...</p>}
+      </>}
+      {isLoading && <p className="text-white">Processing...</p>}
+      {error && <p className="text-red-700 font-semibold">{error}</p>}
 
       <p className="text-white">{transcript}</p>
     </section>
