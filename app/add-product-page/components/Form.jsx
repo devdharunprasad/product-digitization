@@ -5,12 +5,14 @@ import Image from "next/image";
 import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { formSubmission } from "../utils/form-submission";
+import axios from "axios";
 
 const FormSection = () => {
   const { product_store } = useProductStore((state) => state);
 
   const [subCategoryList, setSubCategoryList] = useState(
-    product_store?.category ? [product_store?.category] : []
+    product_store?.category ? [...product_store?.category] : []
   );
   const [subCategory, setSubCategory] = useState("");
 
@@ -19,6 +21,7 @@ const FormSection = () => {
     "Grams",
     "Flavours",
   ]);
+  const [currentVariant, setCurrentVariant] = useState("");
 
   const [finalVariants, setFinalVariants] = useState(
     product_store?.variants ? [product_store?.variants] : []
@@ -31,7 +34,6 @@ const FormSection = () => {
     formState: { errors },
   } = useForm();
   //   const formVariant =  getValues("variant")
-  const onSubmit = (data) => {};
 
   const addVariants = (variant) => {
     setFinalVariants((prev) => [...prev, { [variant]: "" }]);
@@ -45,8 +47,35 @@ const FormSection = () => {
       }
     });
 
-    console.log(variants);
+    setFinalVariants(variants)
   };
+
+  const onSubmit = async (data) => {
+        const formData = {
+      ...data,
+      sub_categories: subCategoryList,
+      variants: finalVariants,
+      image : product_store?.image,
+      price : Number(data.price),
+      discount_price : Number(data.discount_price),
+      inv : Number(data.inv)
+    };
+    console.log(formData)
+//     try{
+
+//     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/2", 
+//         formData
+        
+//     )
+//     console.log(res_data)
+// }
+// catch(err){
+//     console.log(err.message)
+// }
+    
+    await formSubmission(formData);
+  };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -114,6 +143,16 @@ const FormSection = () => {
         />
       </label>
       <label>
+        <span className="mb-2 block font-semibold">Qunatity</span>
+        <input
+          type="number"
+          placeholder="Quantity"
+          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+          {...register("inv", { required: true })}
+        
+        />
+      </label>
+      <label>
         <span className="mb-2 block font-semibold">Price</span>
         <input
           type="number"
@@ -136,11 +175,11 @@ const FormSection = () => {
       <label>
         <span className="mb-2 block font-semibold">Category</span>
         <input
-          type="number"
-          placeholder="Discount Price"
+          type="text"
+          placeholder="Category"
           defaultValue={product_store?.discount_price}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("discount_price", { required: true })}
+          {...register("category", { required: true })}
         />
       </label>
       <div>
@@ -194,14 +233,16 @@ const FormSection = () => {
             placeholder="Variant"
             //   defaultValue={product_store?.variant}
             className="w-10/12 outline-none"
-            {...register("variant", { required: true })}
+            // {...register("variant")}
+            value={currentVariant}
+            onChange={(e) => setCurrentVariant(e.target.value)}
           />
 
-          {watch("variant")?.length > 0 && (
+          {currentVariant?.length > 0 && (
             <PaperPlaneRight
               size={20}
               className="ml-auto"
-              onClick={() => addVariants(watch("variant"))}
+              onClick={() => addVariants(currentVariant)}
             />
           )}
         </div>
@@ -229,6 +270,7 @@ const FormSection = () => {
                 <input
                   className="w-10/12 outline-none"
                   onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
+                  required
                 />
                 <Trash
                   color="red"
