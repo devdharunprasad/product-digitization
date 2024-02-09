@@ -2,7 +2,7 @@
 import { useProductStore } from "@/app/zustand/store";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { Trash } from "phosphor-react";
+import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -12,7 +12,6 @@ const FormSection = () => {
   const [subCategoryList, setSubCategoryList] = useState(
     product_store?.category ? [product_store?.category] : []
   );
-  console.log(subCategoryList);
   const [subCategory, setSubCategory] = useState("");
 
   const [variantsOptions, setVariantsOptions] = useState([
@@ -21,7 +20,9 @@ const FormSection = () => {
     "Flavours",
   ]);
 
-  const [finalVariants, setFinalVariants] = useState([]);
+  const [finalVariants, setFinalVariants] = useState(
+    product_store?.variants ? [...product_store?.variants] : []
+  );
   console.log({ finalVariants });
   const {
     register,
@@ -33,7 +34,6 @@ const FormSection = () => {
   const onSubmit = (data) => {};
 
   const addVariants = (variant) => {
- 
     setFinalVariants((prev) => [...prev, { [variant]: "" }]);
   };
   const updateVariant = (e, variantKey) => {
@@ -57,7 +57,7 @@ const FormSection = () => {
         width={200}
         height={200}
         alt={product_store?.name}
-        className="mx-auto"
+        className="mx-auto object-cover aspect-square"
       />
       <label>
         <span className="mb-2 block font-semibold">Item Name</span>
@@ -66,7 +66,7 @@ const FormSection = () => {
             type="text"
             defaultValue={product_store?.name}
             placeholder="Item Name"
-            className="w-10/12 outline-none"
+            className="w-9/12 outline-none"
             maxLength={100}
             {...register("name", {
               required: { value: true, message: "Items Name is required" },
@@ -76,7 +76,7 @@ const FormSection = () => {
               },
             })}
           />
-          <p className="w-2/12 text-[#33373B]">
+          <p className="w-3/12 text-right text-[#33373B]">
             {watch("name") ? watch("name")?.length : 0} / 100
           </p>
         </div>
@@ -123,8 +123,18 @@ const FormSection = () => {
           {...register("price", { required: true })}
         />
       </label>
+
       <label>
         <span className="mb-2 block font-semibold">Discount Price</span>
+        <input
+          type="text"
+          placeholder="Discount Price"
+          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+          {...register("discount_price", { required: true })}
+        />
+      </label>
+      <label>
+        <span className="mb-2 block font-semibold">Category</span>
         <input
           type="number"
           placeholder="Discount Price"
@@ -143,23 +153,35 @@ const FormSection = () => {
             value={subCategory}
             onChange={(e) => setSubCategory(e.target.value)}
           />
-          <span
+          <PaperPlaneRight
+            size={20}
             onClick={() => {
               setSubCategoryList((prev) =>
                 subCategory.length > 0 ? [...prev, subCategory] : [...prev]
               );
               setSubCategory("");
             }}
-          >
-            Enter
-          </span>
+          />
         </label>
         <div className="mt-5 flex flex-wrap gap-2">
           {subCategoryList &&
             subCategoryList?.length > 0 &&
             subCategoryList.map((list) => (
-              <Badge variant="outline" className="px-4 py-3 text-md" key={list}>
-                {list}
+              <Badge
+                variant="outline"
+                className="px-4 py-3 text-md flex items-center gap-2"
+                key={list}
+              >
+                <span>{list}</span>
+                <X
+                  size={15}
+                  color="red"
+                  onClick={() =>
+                    setSubCategoryList(
+                      subCategoryList?.filter((sub) => list !== sub && sub)
+                    )
+                  }
+                />
               </Badge>
             ))}
         </div>
@@ -174,15 +196,16 @@ const FormSection = () => {
             className="w-10/12 outline-none"
             {...register("variant", { required: true })}
           />
-          <span
-            className="w-2/12"
-            onClick={() => addVariants(watch("variant"))}
-          >
-                       {watch("variant")?.length > 0 && `Enter`}
 
-          </span>
+          {watch("variant")?.length > 0 && (
+            <PaperPlaneRight
+              size={20}
+              className="ml-auto"
+              onClick={() => addVariants(watch("variant"))}
+            />
+          )}
         </div>
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="my-5 flex flex-wrap gap-2">
           {variantsOptions &&
             variantsOptions?.length > 0 &&
             variantsOptions.map((list) => (
@@ -197,30 +220,35 @@ const FormSection = () => {
             ))}
         </div>
         <span>
-          {finalVariants.map((variant) => (
-            <div key = {Object.keys(variant[0])} className="border border-gray-400 my-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
-              <input
-                className="w-10/12 outline-none"
-                onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
-              />
-              <h3 className=" ">{Object.keys(variant)[0]}</h3>
-              <Trash
-                color="red"
-                size = {32}
-                className="ml-5"
-                onClick={(item) => {
-                  if (finalVariants.length === 1) setFinalVariants([]);
-                  setFinalVariants(
-                    finalVariants.filter(
-                      (final) =>
-                        Object.keys(final)[0] !== Object.keys(variant)[0] && {
-                          ...final,
-                        }
-                    )
-                  );
-                }}
-              />
-            </div>
+          {finalVariants.map((variant, i) => (
+            <React.Fragment key={i}>
+              <label className="font-semibold mt-3">
+                {Object.keys(variant)[0]}
+              </label>
+              <div className="border border-gray-400 my-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
+                <input
+                  className="w-10/12 outline-none"
+                  autoFocus
+                  onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
+                />
+                <Trash
+                  color="red"
+                  size={20}
+                  className="ml-5"
+                  onClick={(item) => {
+                    if (finalVariants.length === 1) setFinalVariants([]);
+                    setFinalVariants(
+                      finalVariants.filter(
+                        (final) =>
+                          Object.keys(final)[0] !== Object.keys(variant)[0] && {
+                            ...final,
+                          }
+                      )
+                    );
+                  }}
+                />
+              </div>
+            </React.Fragment>
           ))}
         </span>
       </label>
