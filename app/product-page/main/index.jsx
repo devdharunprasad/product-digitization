@@ -3,11 +3,12 @@ import ProductList from '../components/products/product-list'
 import {Notepad } from 'phosphor-react'
 import PageTitle from '@/app/shared/page-title'
 import AddProducts from '../components/add-products-button'
+import { productTitle } from '@/app/shared/utils/lang'
 
 const ProductPage = () => {
   return (
     <main className='bg-[#EEEEEE] min-h-screen relative'>
-      <PageTitle title = {"Product Catalouge"} icon = {"Product"}/>
+      <PageTitle title = {productTitle} icon = {"Product"}/>
         <ProductList/>
         <div className='absolute bottom-5 w-full left-1/2 transform -translate-x-1/2'>
         <AddProducts/>

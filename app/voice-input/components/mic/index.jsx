@@ -64,7 +64,7 @@ let handleSpeech
   };
 }
   return (
-    <section className="h-screen flex flex-col gap-5 justify-center items-center bg-primary_blue">
+    <section className="h-screen flex flex-col gap-5 justify-center items-center bg-primary">
      {!isLoading && <> <div
         className="border-2 border-white rounded-full w-40 h-40 flex justify-center items-center p-5"
         onClick={handleSpeech}

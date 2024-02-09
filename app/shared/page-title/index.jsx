@@ -13,7 +13,7 @@ const PageTitle = ({ title, icon }) => {
     }
   }
   return (
-    <h1 className="py-5 px-2 text-white bg-primary_blue flex items-center gap-3">
+    <h1 className="py-5 px-2 text-white bg-primary flex items-center gap-3">
       {icon === "Product" && <Notepad size={32} color="white" />}
       <span className="text-center">{title}</span>
       <button className="ml-auto" onClick={handleLogout}>

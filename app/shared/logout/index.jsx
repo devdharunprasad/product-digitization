@@ -3,6 +3,7 @@ import { useRouter } from 'next/navigation'
 import { SignOut } from 'phosphor-react'
 import React, { useState } from 'react'
 import LoadingSpinner from '../loading/loading-spinner'
+import { logout } from '../utils/logout'
 
 const Logout = () => {
     const router = useRouter()

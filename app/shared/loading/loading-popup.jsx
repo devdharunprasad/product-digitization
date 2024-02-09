@@ -1,5 +1,4 @@
 "use client"
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
 import { CircleNotch } from "phosphor-react";
 import React from "react";

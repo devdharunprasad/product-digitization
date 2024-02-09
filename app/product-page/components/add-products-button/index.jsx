@@ -1,6 +1,7 @@
 "use client";
 
 import LoadingPopup from "@/app/shared/loading/loading-popup";
+import { addProductButton } from "@/app/shared/utils/lang";
 import { useProductStore } from "@/app/zustand/store";
 import {
   Popover,
@@ -56,12 +57,12 @@ const AddProducts = () => {
       )}
       <Popover className="flex justify-center items-center gap-3 ">
       
-        <PopoverTrigger className="flex items-center justify-center gap-3 text-white h-12 bg-primary_blue border w-8/12  px-5 py-2 mx-auto rounded-full">
+        <PopoverTrigger className="flex items-center justify-center gap-3 text-white h-12 bg-primary border w-8/12  px-5 py-2 mx-auto rounded-full">
           {isLoading ? (
        <LoadingPopup/> 
       ) : (
             <>
-              <span>Add Products</span>
+              <span>{addProductButton}</span>
               <Plus size={20} color="white" />{" "}
             </>
           )}
