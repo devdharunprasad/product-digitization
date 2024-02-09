@@ -54,9 +54,7 @@ const AddProducts = () => {
     <>
        {isLoading &&
             <LoadingPopup/>}
-      {error && (
-        <p className="text-center text-red-400 font-semibold">{error}</p>
-      )}
+     
       <Popover className="flex justify-center items-center gap-3 ">
       
         <PopoverTrigger className="flex items-center justify-center gap-3 text-white h-12 bg-primary border w-8/12  px-5 py-2 mx-auto rounded-full">
@@ -101,6 +99,9 @@ const AddProducts = () => {
           </Link>
         </PopoverContent>}
       </Popover>
+      {error && (
+        <p className="text-center text-red-400 font-semibold">{error}</p>
+      )}
     </>
   );
 };

@@ -7,12 +7,13 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
+import SubmitButton from "./SubmitButton";
 
 const FormSection = () => {
   const { product_store } = useProductStore((state) => state);
 
   const [subCategoryList, setSubCategoryList] = useState(
-    product_store?.category ? [...product_store?.category] : []
+    product_store["sub-category"] ? [...product_store["sub-category"]] : []
   );
   const [subCategory, setSubCategory] = useState("");
 
@@ -295,7 +296,7 @@ const FormSection = () => {
       </label>
 
       {/* {JSON.stringify(product_store)} */}
-    
+    <SubmitButton/>
     </form>
   );
 };
