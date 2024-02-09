@@ -4,6 +4,7 @@ import {Notepad } from 'phosphor-react'
 import PageTitle from '@/app/shared/page-title'
 import AddProducts from '../components/add-products-button'
 import { productTitle } from '@/app/shared/utils/lang'
+import LoadingPopup from '@/app/shared/loading/loading-popup'
 
 const ProductPage = () => {
   return (

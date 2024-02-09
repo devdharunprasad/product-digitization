@@ -21,7 +21,7 @@ const FormSection = () => {
   ]);
 
   const [finalVariants, setFinalVariants] = useState(
-    product_store?.variants ? [...product_store?.variants] : []
+    product_store?.variants ? [product_store?.variants] : []
   );
   console.log({ finalVariants });
   const {
@@ -225,10 +225,9 @@ const FormSection = () => {
               <label className="font-semibold mt-3">
                 {Object.keys(variant)[0]}
               </label>
-              <div className="border border-gray-400 my-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
+              <div className="border border-gray-400 mb-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
                 <input
                   className="w-10/12 outline-none"
-                  autoFocus
                   onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
                 />
                 <Trash
