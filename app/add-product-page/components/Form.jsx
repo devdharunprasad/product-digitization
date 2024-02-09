@@ -13,7 +13,7 @@ const FormSection = () => {
   const { product_store } = useProductStore((state) => state);
 
   const [subCategoryList, setSubCategoryList] = useState(
-    product_store["sub-category"] ? [...product_store["sub-category"]] : []
+product_store?["sub-category"] : []
   );
   const [subCategory, setSubCategory] = useState("");
 
