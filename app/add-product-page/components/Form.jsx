@@ -295,9 +295,7 @@ const FormSection = () => {
       </label>
 
       {/* {JSON.stringify(product_store)} */}
-      <button className="py-3 px-5 rounded-full mb-10 bg-primary text-white">
-        Submit
-      </button>
+    
     </form>
   );
 };
