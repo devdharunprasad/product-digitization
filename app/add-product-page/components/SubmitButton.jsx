@@ -1,12 +1,13 @@
 "use client"
+import { CircleNotch } from 'phosphor-react'
 import React from 'react'
-import { useFormState } from 'react-hook-form'
+import { useFormState } from 'react-dom'
 
 const SubmitButton = () => {
-    // const {pending} = useFormState()
+    const {pending} = useFormState()
   return (
     <button className="py-3 px-5 rounded-full mb-10 bg-primary text-white">
-        Submit
+        {pending ? <CircleNotch size = {32} color = "white" /> :<>Submit</>}
       </button>
   )
 }

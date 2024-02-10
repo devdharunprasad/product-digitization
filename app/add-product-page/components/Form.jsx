@@ -13,7 +13,7 @@ const FormSection = () => {
   const { product_store } = useProductStore((state) => state);
 
   const [subCategoryList, setSubCategoryList] = useState(
-product_store?["sub-category"] : []
+product_store?.sub_category
   );
   const [subCategory, setSubCategory] = useState("");
 
@@ -25,7 +25,7 @@ product_store?["sub-category"] : []
   const [currentVariant, setCurrentVariant] = useState("");
 
   const [finalVariants, setFinalVariants] = useState(
-    product_store?.variants ? [product_store?.variants] : []
+    product_store?.variants || []
   );
   console.log({ finalVariants });
   const {
@@ -122,7 +122,7 @@ product_store?["sub-category"] : []
         <input
           type="text"
           placeholder="SKU ID"
-          defaultValue={product_store?.skuid}
+          defaultValue={product_store?.sku}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("sku_id", {
             required: { value: true, messsage: "SKU ID is required" },
@@ -140,7 +140,6 @@ product_store?["sub-category"] : []
           placeholder="Description"
           className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
           {...register("description", { required: true })}
-          maxLength={100}
         />
       </label>
       <label>
@@ -178,7 +177,7 @@ product_store?["sub-category"] : []
         <input
           type="text"
           placeholder="Category"
-          defaultValue={product_store?.discount_price}
+          defaultValue={product_store?.category}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />
@@ -262,8 +261,8 @@ product_store?["sub-category"] : []
             ))}
         </div>
         <span>
-          {finalVariants.map((variant, i) => (
-            <React.Fragment key={i}>
+          {finalVariants.map((variant) => (
+            <React.Fragment>
               <label className="font-semibold mt-3">
                 {Object.keys(variant)[0]}
               </label>

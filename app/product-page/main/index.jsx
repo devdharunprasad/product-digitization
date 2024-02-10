@@ -11,7 +11,7 @@ const ProductPage = () => {
     <main className='bg-[#EEEEEE] min-h-screen relative'>
       <PageTitle title = {productTitle} icon = {"Product"}/>
         <ProductList/>
-        <div className='absolute bottom-5 w-full left-1/2 transform -translate-x-1/2'>
+        <div className='fixed bottom-5 w-full left-1/2 transform -translate-x-1/2'>
         <AddProducts/>
         </div>
     </main>
