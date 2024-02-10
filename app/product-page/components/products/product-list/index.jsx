@@ -27,7 +27,10 @@ const ProductList = async () => {
     <section className="center-section mt-5 pb-16">
       <div className="grid grid-cols-1 gap-5">
         {error}
-        {product_list_data?.map((product) => {
+        <p className="text-primary text-center">
+        {product_list_data?.message}
+        </p>
+        {Array.isArray(product_list_data) && product_list_data?.map((product) => {
           return (
             <ProductItem data={product} key={product_list_data?.product?.id} />
           );

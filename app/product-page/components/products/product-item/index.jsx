@@ -1,9 +1,11 @@
 import React from "react";
 import StockToggle from "../stock-toggle";
+import PopupButton from "../popup-button";
 
 const ProductItem = ({ data }) => {
   return (
-    <div className="border rounded-lg p-5 bg-white shadow-lg relative" key ={data?.product?.id}>
+    <div className="border rounded-lg p-5 flex flex-col gap-1 bg-white shadow-lg relative" key ={data?.product?.id}>
+      <PopupButton product_id = {data?.product?.id}/>
       <h1>{data?.product?.name}</h1>
       <p>{data?.product?.category}</p>
       <p className="flex gap-2">

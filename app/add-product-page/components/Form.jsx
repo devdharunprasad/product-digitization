@@ -5,7 +5,7 @@ import Image from "next/image";
 import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-// import { formSubmission } from "../utils/form-submission";
+import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
@@ -70,23 +70,23 @@ product_store?.sub_category
       inv : Number(data.inv)
     };
     console.log(formData)
-    try{
+//     try{
 
-    const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/2", 
-        formData
+//     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/", 
+//         formData
         
-    )
-    if(res_data){
-      router.refresh()
-      router.push("/")
-    }
-}
-catch(err){
-    console.log(err.message)
-    setError(err.message)
-}
+//     )
+//     if(res_data){
+//       router.refresh()
+//       router.push("/")
+//     }
+// }
+// catch(err){
+//     console.log(err.message)
+//     setError(err.message)
+// }
     
-    // await formSubmission(formData);
+    await formSubmission(formData);
   };
 
   return (
