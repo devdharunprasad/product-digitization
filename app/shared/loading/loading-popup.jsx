@@ -38,8 +38,8 @@ console.log(loadingMessage)
       ]}>
         <CarouselContent className="">
           {loadingMessage?.message?.map((message) => (
-            <CarouselItem>
-              <p className="text-white text-center w-6/12 mx-auto">{message}</p>
+            <CarouselItem key = {message}>
+              <p className="text-white text-center w-8/12 mx-auto">{message}</p>
             </CarouselItem>
           ))}
         </CarouselContent>

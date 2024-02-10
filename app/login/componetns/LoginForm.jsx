@@ -38,21 +38,7 @@ const LoginForm = ({loginPage}) => {
           className="border border-black h-12 w-full px-2 rounded-md"
           required
         />
-        <label className="font-semibold text-left text-sm w-full -mb-3">
-          {loginPage.choose}
-        </label>
-        <Select defaultValue="eng" name="lang">
-          <SelectTrigger className="border-black">
-            <SelectValue placeholder="Choose your language" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Language</SelectLabel>
-              <SelectItem value="eng">English</SelectItem>
-              <SelectItem value="tam">தமிழ்</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+    
         <SubmitButton loginPage={loginPage} />
       </form>
       <p className="text-center mt-5">

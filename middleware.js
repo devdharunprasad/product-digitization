@@ -8,7 +8,6 @@ const { cookies } = require("next/headers")
     const password = cookieStore.has("password")
     const uid = cookieStore.has("uid")
     const uidvalue = cookieStore.get("uid")
-    console.log(cookieStore.get("lang").value)
     console.log(uidvalue)
         console.log({username, password, uid})
     if(!username && !password & !uid){

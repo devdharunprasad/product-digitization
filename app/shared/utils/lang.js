@@ -1,9 +1,9 @@
-"use server";
+// "use server";
 
-import { cookies } from "next/headers";
 
-const cookieStore = cookies();
-const lang = cookieStore.get("lang").value;
+// const cookieStore = cookies();
+// const lang = cookieStore.get("lang").value;
+const lang =  "eng"
 
 export const productTitle = () =>
   (lang === "eng" && "Product Catalouge") ||

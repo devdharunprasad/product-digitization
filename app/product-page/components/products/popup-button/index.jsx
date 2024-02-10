@@ -25,9 +25,10 @@ const PopupButton = ({ product_id, catalog_id }) => {
   const handleDelte = async (id) => {
     setIsLoading(true);
     try {
-      await axios.delete(
+     const {data} =  await axios.delete(
         `https://ondchackathon-production.up.railway.app/product/${id}`
       );
+      console.log({onDelete : data})
       router.refresh();
     } catch (err) {
       console.log(err.message);
@@ -45,7 +46,7 @@ const PopupButton = ({ product_id, catalog_id }) => {
         <PopoverContent className="w-fit flex flex-col" align="end">
           <Link href={`/duplicate/${catalog_id}`}>Duplicate</Link>
           <Dialog>
-            <DialogTrigger className="text-left">Delete</DialogTrigger>
+            {/* <DialogTrigger className="text-left">Delete</DialogTrigger> */}
             <DialogContent>
               <DialogTitle>Do you want to delete?</DialogTitle>
               {isLoading ? (

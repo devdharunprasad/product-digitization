@@ -156,10 +156,10 @@ product_store?.sub_category
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.qunatity}</span>
+        <span className="mb-2 block font-semibold">{formPage.quantity}</span>
         <input
           type="number"
-          placeholder={formPage.qunatity}
+          placeholder={formPage.quantity}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("inv", { required: true })}
         

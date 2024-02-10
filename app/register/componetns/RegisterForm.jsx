@@ -32,19 +32,7 @@ const RegisterForm = ({registerPage}) => {
           className="border border-black h-12 w-full px-2 rounded-md"
           required
         />
-                <label className="font-semibold text-left text-sm w-full -mb-3">{registerPage.choose}</label>
-       <Select defaultValue="eng">
-      <SelectTrigger className="border-black">
-        <SelectValue placeholder="Choose your language" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Language</SelectLabel>
-          <SelectItem value="eng">English</SelectItem>
-          <SelectItem value="tam">Tamil</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+            
       
       <SubmitButton registerPage = {registerPage}/>
       </form>
