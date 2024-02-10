@@ -10,6 +10,7 @@ export const register = async (formData) => {
   const cookieStore = cookies();
   const username = formData.get("username");
   const password = formData.get("password");
+  const lang = formData.get("lang")
 
   const { data } = await axios.post(
     "https://ondchackathon-production.up.railway.app/register",
@@ -22,6 +23,7 @@ export const register = async (formData) => {
     cookieStore.set("username", username);
     cookieStore.set("password", password);
     cookieStore.set("uid", data?.id);
+    cookieStore.set("lang", lang)
 
     redirect("/");
   } else {

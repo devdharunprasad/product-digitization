@@ -7,31 +7,28 @@ import { useRouter } from "next/navigation";
 import { NextResponse } from "next/server";
 
 export const login = async (formData) => {
-    const cookieStore = cookies();
-    const username = formData.get("username");
-    const password = formData.get("password");
+  const cookieStore = cookies();
+  const username = formData.get("username");
+  const password = formData.get("password");
+  const lang = formData.get("lang");
 
-    const { data } = await axios.post(
-      "https://ondchackathon-production.up.railway.app/login",
-      {
-        username,
-           password,
-
-      }
-    );
-    if(data){
-      cookieStore.set("username", username);
-      cookieStore.set("password", password);
-      cookieStore.set("uid", data?.user_id);
-
-      redirect("/")
+  const { data } = await axios.post(
+    "https://ondchackathon-production.up.railway.app/login",
+    {
+      username,
+      password,
     }
-    else{
-        throw new Error("Something went wrong")
-    }    // throw new Error(err.message);
-  
+  );
+  if (data) {
+    cookieStore.set("username", username);
+    cookieStore.set("password", password);
+    cookieStore.set("uid", data?.user_id);
+    cookieStore.set("lang", lang);
 
-    // redirect("/")
-  
+    redirect("/");
+  } else {
+    throw new Error("Something went wrong");
+  } // throw new Error(err.message);
 
+  // redirect("/")
 };

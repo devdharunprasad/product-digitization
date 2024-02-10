@@ -1,18 +1,16 @@
-"use client";
-import React, { useEffect } from "react";
-import { useProductStore } from "../zustand/store";
+import React from "react";
 import FormSection from "./components/Form";
 import PageTitle from "../shared/page-title";
+import { formPage } from "../shared/utils/lang";
 
 const AddProductPage = () => {
-  const { product_store } = useProductStore((state) => state);
-
-  useEffect(() => {});
+    
+  
   return (
     <main className="">
-      <PageTitle title={"Add Items"} icon={"Product"} />
+      <PageTitle title={formPage().title} icon={"Product"} />
     <div className="mt-10">
-      <FormSection />
+      <FormSection formPage = {formPage()} />
       </div>
     </main>
   );

@@ -9,19 +9,21 @@ import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
-import LoadingSpinner from "@/app/shared/loading/loading-spinner";
 
-const FormSection = ({formPage}) => {
-  const router = useRouter()
-  const { product_store } = useProductStore((state) => state);
+const FormSection = ({ product_data }) => {
+  const router = useRouter();
+  // const { product_store } = useProductStore((state) => state);
+
+  const { product, catalog } = product_data;
+  const product_store = { ...product, ...catalog };
 
   const [subCategoryList, setSubCategoryList] = useState(
-product_store?.sub_category
+    product_store?.sub_categories
   );
   const [subCategory, setSubCategory] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [variantsOptions, setVariantsOptions] = useState([
     "Kgs",
@@ -31,7 +33,7 @@ product_store?.sub_category
   const [currentVariant, setCurrentVariant] = useState("");
 
   const [finalVariants, setFinalVariants] = useState(
-    product_store?.variants || []
+    product_store?.variants
   );
   console.log({ finalVariants });
   const {
@@ -40,7 +42,6 @@ product_store?.sub_category
     watch,
     formState: { errors },
   } = useForm();
-  //   const formVariant =  getValues("variant")
 
   const addVariants = (variant) => {
     setFinalVariants((prev) => [...prev, { [variant]: "" }]);
@@ -54,39 +55,39 @@ product_store?.sub_category
       }
     });
 
-    setFinalVariants(variants)
+    setFinalVariants(variants);
   };
 
   const onSubmit = async (data) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
-        const formData = {
+    const formData = {
       ...data,
-      
       sub_categories: subCategoryList,
-        variants: [...finalVariants],
-      image : product_store?.image,
-      price : Number(data.price),
-      discount_price : Number(data.discount_price),
-      inv : Number(data.inv)
+      variants: finalVariants,
+      image: product_store?.image,
+      price: Number(data.price),
+      discount_price: Number(data.discount_price),
+      inv: Number(data.inv),
+      pid : product_store.id
     };
-    console.log(formData)
-//     try{
+    console.log(formData);
+    //     try{
 
-//     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/", 
-//         formData
-        
-//     )
-//     if(res_data){
-//       router.refresh()
-//       router.push("/")
-//     }
-// }
-// catch(err){
-//     console.log(err.message)
-//     setError(err.message)
-// }
-    
+    //     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/",
+    //         formData
+
+    //     )
+    //     if(res_data){
+    //       router.refresh()
+    //       router.push("/")
+    //     }
+    // }
+    // catch(err){
+    //     console.log(err.message)
+    //     setError(err.message)
+    // }
+
     await formSubmission(formData);
   };
 
@@ -103,12 +104,12 @@ product_store?.sub_category
         className="mx-auto object-cover aspect-square"
       />
       <label>
-        <span className="mb-2 block font-semibold">{formPage.item_name}</span>
+        <span className="mb-2 block font-semibold">Item Name</span>
         <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center">
           <input
             type="text"
             defaultValue={product_store?.name}
-            placeholder={formPage.item_name}
+            placeholder="Item Name"
             className="w-9/12 outline-none"
             maxLength={100}
             {...register("name", {
@@ -131,10 +132,10 @@ product_store?.sub_category
         )}
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.sku_id}</span>
+        <span className="mb-2 block font-semibold">SKU id</span>
         <input
           type="text"
-          placeholder={formPage.sku_id}
+          placeholder="SKU ID"
           defaultValue={product_store?.sku}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("sku_id", {
@@ -146,30 +147,29 @@ product_store?.sub_category
         )}
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.description}</span>
+        <span className="mb-2 block font-semibold">Description</span>
         <textarea
           type="text"
           defaultValue={product_store?.description}
-          placeholder={formPage.description}
+          placeholder="Description"
           className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
           {...register("description", { required: true })}
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.qunatity}</span>
+        <span className="mb-2 block font-semibold">Qunatity</span>
         <input
           type="number"
-          placeholder={formPage.qunatity}
+          placeholder="Quantity"
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("inv", { required: true })}
-        
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.price}</span>
+        <span className="mb-2 block font-semibold">Price</span>
         <input
           type="number"
-          placeholder={formPage.price}
+          placeholder="Price"
           defaultValue={product_store?.price}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("price", { required: true })}
@@ -177,30 +177,31 @@ product_store?.sub_category
       </label>
 
       <label>
-        <span className="mb-2 block font-semibold">{formPage.discount_price}</span>
+        <span className="mb-2 block font-semibold">Discount Price</span>
         <input
           type="text"
-          placeholder={formPage.discount_price}
+          defaultValue={product_store?.discount_price}
+          placeholder="Discount Price"
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("discount_price", { required: true })}
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.category}</span>
+        <span className="mb-2 block font-semibold">Category</span>
         <input
           type="text"
-          placeholder={formPage.category}
+          placeholder="Category"
           defaultValue={product_store?.category}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />
       </label>
       <div>
-        <span className="mb-2 block font-semibold"> {formPage.sub_category}</span>
+        <span className="mb-2 block font-semibold">Sub Categories</span>
         <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
           <input
             type="text"
-            placeholder={formPage.sub_category}
+            placeholder="Type Category"
             className="outline-none border-none w-10/12"
             value={subCategory}
             onChange={(e) => setSubCategory(e.target.value)}
@@ -239,11 +240,11 @@ product_store?.sub_category
         </div>
       </div>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.variants}</span>
+        <span className="mb-2 block font-semibold">Variants</span>
         <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
           <input
             type="text"
-            placeholder={formPage.variants}
+            placeholder="Variant"
             //   defaultValue={product_store?.variant}
             className="w-10/12 outline-none"
             // {...register("variant")}
@@ -262,7 +263,7 @@ product_store?.sub_category
         <div className="my-5 flex flex-wrap gap-2">
           {variantsOptions &&
             variantsOptions?.length > 0 &&
-            variantsOptions.map((list,i) => (
+            variantsOptions.map((list, i) => (
               <Badge
                 variant="outline"
                 className="px-4 py-2 font-normal text-md cursor-pointer"
@@ -274,8 +275,8 @@ product_store?.sub_category
             ))}
         </div>
         <span>
-          {finalVariants.map((variant,i) => (
-            <React.Fragment key ={i}>
+          {finalVariants.map((variant, i) => (
+            <React.Fragment key={i}>
               <label className="font-semibold mt-3">
                 {Object.keys(variant)[0]}
               </label>
@@ -308,8 +309,8 @@ product_store?.sub_category
       </label>
 
       {/* {JSON.stringify(product_store)} */}
-    {error  && <p>{error}</p>}
-    <SubmitButton isLoading = {isLoading}/>
+      {error && <p>{error}</p>}
+      <SubmitButton isLoading={isLoading} />
     </form>
   );
 };

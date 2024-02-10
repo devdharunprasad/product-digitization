@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { DotsThreeVertical } from "phosphor-react";
 import React, { useState } from "react";
 
-const PopupButton = ({ product_id }) => {
+const PopupButton = ({ product_id, catalog_id }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
   const handleDelte = async (id) => {
@@ -43,8 +43,7 @@ const PopupButton = ({ product_id }) => {
           <DotsThreeVertical size={25} />
         </PopoverTrigger>
         <PopoverContent className="w-fit flex flex-col" align="end">
-          <Link href="">Edit</Link>
-          <Link href="">Duplicate</Link>
+          <Link href={`/duplicate/${catalog_id}`}>Duplicate</Link>
           <Dialog>
             <DialogTrigger className="text-left">Delete</DialogTrigger>
             <DialogContent>

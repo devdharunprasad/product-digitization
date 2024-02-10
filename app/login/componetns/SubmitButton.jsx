@@ -1,9 +1,8 @@
 import LoadingSpinner from "@/app/shared/loading/loading-spinner";
-import { loginPage } from "@/app/shared/utils/lang";
 import React from "react";
 import { useFormStatus } from "react-dom";
 
-const SubmitButton = () => {
+const SubmitButton = ({loginPage}) => {
   const { pending } = useFormStatus();
   const button = loginPage.button
   return (
