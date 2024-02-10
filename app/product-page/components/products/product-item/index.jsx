@@ -3,7 +3,7 @@ import StockToggle from "../stock-toggle";
 
 const ProductItem = ({ data }) => {
   return (
-    <div className="border rounded-lg p-5 bg-white shadow-lg relative">
+    <div className="border rounded-lg p-5 bg-white shadow-lg relative" key ={data?.product?.id}>
       <h1>{data?.product?.name}</h1>
       <p>{data?.product?.category}</p>
       <p className="flex gap-2">

@@ -5,17 +5,23 @@ import Image from "next/image";
 import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { formSubmission } from "../utils/form-submission";
+// import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
+import { useRouter } from "next/navigation";
+import LoadingSpinner from "@/app/shared/loading/loading-spinner";
 
 const FormSection = () => {
+  const router = useRouter()
   const { product_store } = useProductStore((state) => state);
 
   const [subCategoryList, setSubCategoryList] = useState(
 product_store?.sub_category
   );
   const [subCategory, setSubCategory] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
 
   const [variantsOptions, setVariantsOptions] = useState([
     "Kgs",
@@ -52,6 +58,8 @@ product_store?.sub_category
   };
 
   const onSubmit = async (data) => {
+    setIsLoading(true)
+
         const formData = {
       ...data,
       sub_categories: subCategoryList,
@@ -62,19 +70,23 @@ product_store?.sub_category
       inv : Number(data.inv)
     };
     console.log(formData)
-//     try{
+    try{
 
-//     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/2", 
-//         formData
+    const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/2", 
+        formData
         
-//     )
-//     console.log(res_data)
-// }
-// catch(err){
-//     console.log(err.message)
-// }
+    )
+    if(res_data){
+      router.refresh()
+      router.push("/")
+    }
+}
+catch(err){
+    console.log(err.message)
+    setError(err.message)
+}
     
-    await formSubmission(formData);
+    // await formSubmission(formData);
   };
 
   return (
@@ -249,11 +261,11 @@ product_store?.sub_category
         <div className="my-5 flex flex-wrap gap-2">
           {variantsOptions &&
             variantsOptions?.length > 0 &&
-            variantsOptions.map((list) => (
+            variantsOptions.map((list,i) => (
               <Badge
                 variant="outline"
                 className="px-4 py-2 font-normal text-md cursor-pointer"
-                key={list}
+                key={i}
                 onClick={() => addVariants(list)}
               >
                 {list}{" "}
@@ -261,8 +273,8 @@ product_store?.sub_category
             ))}
         </div>
         <span>
-          {finalVariants.map((variant) => (
-            <React.Fragment>
+          {finalVariants.map((variant,i) => (
+            <React.Fragment key ={i}>
               <label className="font-semibold mt-3">
                 {Object.keys(variant)[0]}
               </label>
@@ -295,7 +307,8 @@ product_store?.sub_category
       </label>
 
       {/* {JSON.stringify(product_store)} */}
-    <SubmitButton/>
+    {error  && <p>{error}</p>}
+    <SubmitButton isLoading = {isLoading}/>
     </form>
   );
 };
