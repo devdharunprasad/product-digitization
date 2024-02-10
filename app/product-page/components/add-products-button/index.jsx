@@ -94,10 +94,10 @@ const AddProducts = ({addProductButtonContent}) => {
                 className="w-full border  top-0  left-0 opacity-0 absolute z-30"
               />
             </div>
-            <Link href="/voice-input" className="flex items-center gap-2 h-8">
+            {/* <Link href="/voice-input" className="flex items-center gap-2 h-8">
               <Microphone size={20} />
               <span>Voice Input</span>
-            </Link>
+            </Link> */}
           </PopoverContent>
         )}
       </Popover>
