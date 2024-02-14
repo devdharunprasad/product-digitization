@@ -1,5 +1,5 @@
 "use client";
-import { useProductStore } from "@/app/zustand/store";
+import { useLangNumStore, useProductStore } from "@/app/zustand/store";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 const FormSection = ({ product_data }) => {
   const router = useRouter();
-  // const { product_store } = useProductStore((state) => state);
+  const { langNum } = useLangNumStore((state) => state);
 
   const { product, catalog } = product_data;
   const product_store = { ...product, ...catalog };
@@ -93,225 +93,225 @@ const FormSection = ({ product_data }) => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="center-section flex flex-col gap-5"
-    >
-      <Image
-        src={product_store?.image || "/default-product.png"}
-        width={200}
-        height={200}
-        alt={product_store?.name}
-        className="mx-auto object-cover aspect-square"
-      />
-      <label>
-        <span className="mb-2 block font-semibold">Item Name</span>
-        <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center">
-          <input
-            type="text"
-            defaultValue={product_store?.name}
-            placeholder="Item Name"
-            className="w-9/12 outline-none"
-            maxLength={100}
-            {...register("name", {
-              required: { value: true, message: "Items Name is required" },
-              maxLength: {
-                value: 100,
-                message: "Item name should have less than 100 Chars",
-              },
-            })}
-          />
-          <p className="w-3/12 text-right text-[#33373B]">
-            {watch("name") ? watch("name")?.length : 0} / 100
-          </p>
-        </div>
-        {errors?.name?.type === "required" && (
-          <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
-        )}
-        {errors?.name?.type === "maxLength" && (
-          <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
-        )}
-      </label>
-      <label>
-        <span className="mb-2 block font-semibold">SKU id</span>
+    onSubmit={handleSubmit(onSubmit)}
+    className="center-section flex flex-col gap-5"
+  >
+    <Image
+      src={product_store?.image || "/default-product.png"}
+      width={200}
+      height={200}
+      alt={product_store?.name}
+      className="mx-auto object-cover aspect-square"
+    />
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.item_name[langNum]}</span>
+      <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center">
         <input
           type="text"
-          placeholder="SKU ID"
-          defaultValue={product_store?.sku}
-          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("sku_id", {
-            required: { value: true, messsage: "SKU ID is required" },
+          defaultValue={product_store?.name}
+          placeholder={formPage.item_name[langNum]}
+          className="w-9/12 outline-none"
+          maxLength={100}
+          {...register("name", {
+            required: { value: true, message: "Items Name is required" },
+            maxLength: {
+              value: 100,
+              message: "Item name should have less than 100 Chars",
+            },
           })}
         />
-        {errors?.price?.type === "required" && (
-          <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
-        )}
-      </label>
-      <label>
-        <span className="mb-2 block font-semibold">Description</span>
-        <textarea
-          type="text"
-          defaultValue={product_store?.description}
-          placeholder="Description"
-          className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
-          {...register("description", { required: true })}
-        />
-      </label>
-      <label>
-        <span className="mb-2 block font-semibold">Qunatity</span>
-        <input
-          type="number"
-          placeholder="Quantity"
-          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("inv", { required: true })}
-        />
-      </label>
-      <label>
-        <span className="mb-2 block font-semibold">Price</span>
-        <input
-          type="number"
-          placeholder="Price"
-          defaultValue={product_store?.price}
-          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("price", { required: true })}
-        />
-      </label>
+        <p className="w-3/12 text-right text-[#33373B]">
+          {watch("name") ? watch("name")?.length : 0} / 100
+        </p>
+      </div>
+      {errors?.name?.type === "required" && (
+        <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
+      )}
+      {errors?.name?.type === "maxLength" && (
+        <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
+      )}
+    </label>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.sku_id[langNum]}</span>
+      <input
+        type="text"
+        placeholder={formPage.sku_id[langNum]}
+        defaultValue={product_store?.sku}
+        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+        {...register("sku_id", {
+          required: { value: true, messsage: "SKU ID is required" },
+        })}
+      />
+      {errors?.price?.type === "required" && (
+        <p className="text-red-500 font-semibold">{errors?.name?.message}</p>
+      )}
+    </label>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.description[langNum]}</span>
+      <textarea
+        type="text"
+        defaultValue={product_store?.description}
+        placeholder={formPage.description[langNum]}
+        className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
+        {...register("description", { required: true })}
+      />
+    </label>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.quantity[langNum]}</span>
+      <input
+        type="number"
+        placeholder={formPage.quantity[langNum]}
+        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+        {...register("inv", { required: true })}
+      
+      />
+    </label>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.price[langNum]}</span>
+      <input
+        type="number"
+        placeholder={formPage.price[langNum]}
+        defaultValue={product_store?.price}
+        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+        {...register("price", { required: true })}
+      />
+    </label>
 
-      <label>
-        <span className="mb-2 block font-semibold">Discount Price</span>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.discount_price[langNum]}</span>
+      <input
+        type="text"
+        placeholder={formPage.discount_price[langNum]}
+        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+        {...register("discount_price", { required: true })}
+      />
+    </label>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.category[langNum]}</span>
+      <input
+        type="text"
+        placeholder={formPage.category[langNum]}
+        defaultValue={product_store?.category}
+        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+        {...register("category", { required: true })}
+      />
+    </label>
+    <div>
+      <span className="mb-2 block font-semibold"> {formPage.sub_category[langNum]}</span>
+      <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
         <input
           type="text"
-          defaultValue={product_store?.discount_price}
-          placeholder="Discount Price"
-          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("discount_price", { required: true })}
+          placeholder={formPage.sub_category[langNum]}
+          className="outline-none border-none w-10/12"
+          value={subCategory}
+          onChange={(e) => setSubCategory(e.target.value)}
+        />
+        <PaperPlaneRight
+          size={20}
+          onClick={() => {
+            setSubCategoryList((prev) =>
+              subCategory.length > 0 ? [...prev, subCategory] : [...prev]
+            );
+            setSubCategory("");
+          }}
         />
       </label>
-      <label>
-        <span className="mb-2 block font-semibold">Category</span>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {subCategoryList &&
+          subCategoryList?.length > 0 &&
+          subCategoryList.map((list) => (
+            <Badge
+              variant="outline"
+              className="px-4 py-3 text-md flex items-center gap-2"
+              key={list}
+            >
+              <span>{list}</span>
+              <X
+                size={15}
+                color="red"
+                onClick={() =>
+                  setSubCategoryList(
+                    subCategoryList?.filter((sub) => list !== sub && sub)
+                  )
+                }
+              />
+            </Badge>
+          ))}
+      </div>
+    </div>
+    <label>
+      <span className="mb-2 block font-semibold">{formPage.variants[langNum]}</span>
+      <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
         <input
           type="text"
-          placeholder="Category"
-          defaultValue={product_store?.category}
-          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-          {...register("category", { required: true })}
+          placeholder={formPage.variants[langNum]}
+          //   defaultValue={product_store?.variant}
+          className="w-10/12 outline-none"
+          // {...register("variant")}
+          value={currentVariant}
+          onChange={(e) => setCurrentVariant(e.target.value)}
         />
-      </label>
-      <div>
-        <span className="mb-2 block font-semibold">Sub Categories</span>
-        <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
-          <input
-            type="text"
-            placeholder="Type Category"
-            className="outline-none border-none w-10/12"
-            value={subCategory}
-            onChange={(e) => setSubCategory(e.target.value)}
-          />
+
+        {currentVariant?.length > 0 && (
           <PaperPlaneRight
             size={20}
-            onClick={() => {
-              setSubCategoryList((prev) =>
-                subCategory.length > 0 ? [...prev, subCategory] : [...prev]
-              );
-              setSubCategory("");
-            }}
+            className="ml-auto"
+            onClick={() => addVariants(currentVariant)}
           />
-        </label>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {subCategoryList &&
-            subCategoryList?.length > 0 &&
-            subCategoryList.map((list) => (
-              <Badge
-                variant="outline"
-                className="px-4 py-3 text-md flex items-center gap-2"
-                key={list}
-              >
-                <span>{list}</span>
-                <X
-                  size={15}
-                  color="red"
-                  onClick={() =>
-                    setSubCategoryList(
-                      subCategoryList?.filter((sub) => list !== sub && sub)
-                    )
-                  }
-                />
-              </Badge>
-            ))}
-        </div>
+        )}
       </div>
-      <label>
-        <span className="mb-2 block font-semibold">Variants</span>
-        <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
-          <input
-            type="text"
-            placeholder="Variant"
-            //   defaultValue={product_store?.variant}
-            className="w-10/12 outline-none"
-            // {...register("variant")}
-            value={currentVariant}
-            onChange={(e) => setCurrentVariant(e.target.value)}
-          />
-
-          {currentVariant?.length > 0 && (
-            <PaperPlaneRight
-              size={20}
-              className="ml-auto"
-              onClick={() => addVariants(currentVariant)}
-            />
-          )}
-        </div>
-        <div className="my-5 flex flex-wrap gap-2">
-          {variantsOptions &&
-            variantsOptions?.length > 0 &&
-            variantsOptions.map((list, i) => (
-              <Badge
-                variant="outline"
-                className="px-4 py-2 font-normal text-md cursor-pointer"
-                key={i}
-                onClick={() => addVariants(list)}
-              >
-                {list}{" "}
-              </Badge>
-            ))}
-        </div>
-        <span>
-          {finalVariants.map((variant, i) => (
-            <React.Fragment key={i}>
-              <label className="font-semibold mt-3">
-                {Object.keys(variant)[0]}
-              </label>
-              <div className="border border-gray-400 mb-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
-                <input
-                  className="w-10/12 outline-none"
-                  onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
-                  required
-                />
-                <Trash
-                  color="red"
-                  size={20}
-                  className="ml-5"
-                  onClick={(item) => {
-                    if (finalVariants.length === 1) setFinalVariants([]);
-                    setFinalVariants(
-                      finalVariants.filter(
-                        (final) =>
-                          Object.keys(final)[0] !== Object.keys(variant)[0] && {
-                            ...final,
-                          }
-                      )
-                    );
-                  }}
-                />
-              </div>
-            </React.Fragment>
+      <div className="my-5 flex flex-wrap gap-2">
+        {variantsOptions &&
+          variantsOptions?.length > 0 &&
+          variantsOptions.map((list,i) => (
+            <Badge
+              variant="outline"
+              className="px-4 py-2 font-normal text-md cursor-pointer"
+              key={i}
+              onClick={() => addVariants(list)}
+            >
+              {list}{" "}
+            </Badge>
           ))}
-        </span>
-      </label>
+      </div>
+      <span>
+        {finalVariants.map((variant,i) => (
+          <React.Fragment key ={i}>
+            <label className="font-semibold mt-3">
+              {Object.keys(variant)[0]}
+            </label>
+            <div className="border border-gray-400 mb-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
+              <input
+                className="w-10/12 outline-none"
+                onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
+                required
+              />
+              <Trash
+                color="red"
+                size={20}
+                className="ml-5"
+                onClick={(item) => {
+                  if (finalVariants.length === 1) setFinalVariants([]);
+                  setFinalVariants(
+                    finalVariants.filter(
+                      (final) =>
+                        Object.keys(final)[0] !== Object.keys(variant)[0] && {
+                          ...final,
+                        }
+                    )
+                  );
+                }}
+              />
+            </div>
+          </React.Fragment>
+        ))}
+      </span>
+    </label>
 
-      {/* {JSON.stringify(product_store)} */}
-      {error && <p>{error}</p>}
-      <SubmitButton isLoading={isLoading} />
-    </form>
+    {/* {JSON.stringify(product_store)} */}
+  {error  && <p>{error}</p>}
+  <SubmitButton isLoading = {isLoading} buttonContent = {formPage.button[langNum]}/>
+  </form>
   );
 };
 

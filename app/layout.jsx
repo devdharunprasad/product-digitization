@@ -14,8 +14,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={poppins.className}>
         <main className="max-w-[500px] mx-auto">
-          <LanguageDropDown/>
         {children}
+          <LanguageDropDown/>
         </main>
         </body>
     </html>

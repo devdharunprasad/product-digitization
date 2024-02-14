@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 import {devtools, persist} from "zustand/middleware"
-export const useProductStore =(set) => ({
+
+export const useProductStore =create((set) => ({
   product_store : null,
-  addProduct: (product_store) => set((state) => ({ product_store })),
-  removeAllBears: () => set({ bears: 0 }),
-})
+  addProduct: (product) => set((state) => ({ product_store : product })),
+}))
 
 const langNumStore = (set) => ({
     langNum : 0,

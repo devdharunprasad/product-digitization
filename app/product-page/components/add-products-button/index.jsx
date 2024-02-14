@@ -1,7 +1,8 @@
 "use client";
 
 import LoadingPopup from "@/app/shared/loading/loading-popup";
-import { useProductStore } from "@/app/zustand/store";
+import { captureImage, uploadImage } from "@/app/shared/utils/lang";
+import { useLangNumStore, useProductStore } from "@/app/zustand/store";
 import {
   Popover,
   PopoverContent,
@@ -25,7 +26,7 @@ const AddProducts = ({addProductButtonContent}) => {
   const router = useRouter();
 
   const { product_store, addProduct } = useProductStore((state) => state);
-
+  const {langNum} = useLangNumStore(state => state)
   const handleChange = async (e) => {
     try {
       setLoading(true);
@@ -44,7 +45,7 @@ const AddProducts = ({addProductButtonContent}) => {
         if (data) {
           router.push("/add-product-page");
         }
-        console.log(data);
+        console.log({data});
         addProduct(data);
       }
     } catch (err) {
@@ -55,6 +56,7 @@ const AddProducts = ({addProductButtonContent}) => {
     }
   };
   
+
 
   return (
     <>
@@ -71,7 +73,7 @@ const AddProducts = ({addProductButtonContent}) => {
           <PopoverContent className="ml-auto w-fit" align="end">
             <div className="relative h-8 flex gap-2 items-center">
               <Camera size={20} />
-              <p className="">Capture Image</p>
+              <p className="">{captureImage[langNum]}</p>
               <input
                 type="file"
                 id="cam"
@@ -84,7 +86,7 @@ const AddProducts = ({addProductButtonContent}) => {
             <div className="relative h-8 flex items-center gap-2">
               <UploadSimple size={20} />
 
-              <p className="">Choose File</p>
+              <p className="">{uploadImage[langNum]}</p>
               <input
                 type="file"
                 id="cam"

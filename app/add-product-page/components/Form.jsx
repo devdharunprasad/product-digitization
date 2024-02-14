@@ -1,5 +1,5 @@
 "use client";
-import { useProductStore } from "@/app/zustand/store";
+import { useLangNumStore, useProductStore } from "@/app/zustand/store";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { KeyReturn, PaperPlaneRight, Trash, X } from "phosphor-react";
@@ -11,17 +11,20 @@ import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/app/shared/loading/loading-spinner";
 
-const FormSection = ({formPage}) => {
-  const router = useRouter()
-  const { product_store } = useProductStore((state) => state);
+const FormSection = ({ formPage }) => {
+  const router = useRouter();
 
+  const { langNum } = useLangNumStore((state) => state);
+
+  const { product_store } = useProductStore((state) => state);
+  console.log({ product_store });
   const [subCategoryList, setSubCategoryList] = useState(
-product_store?.sub_category
+    product_store?.sub_category
   );
   const [subCategory, setSubCategory] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const [variantsOptions, setVariantsOptions] = useState([
     "Kgs",
@@ -54,40 +57,45 @@ product_store?.sub_category
       }
     });
 
-    setFinalVariants(variants)
+    setFinalVariants(variants);
   };
 
   const onSubmit = async (data) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
-        const formData = {
+    const formData = {
       ...data,
-      
+      name: product_store.name.map((name, i) =>
+        i === langNum ? data.name : name
+      ),
+      description: product_store.description.map((desc, i) =>
+        i === langNum ? data.description : desc
+      ),
       sub_categories: subCategoryList,
-        variants: [...finalVariants],
-      image : product_store?.image,
-      price : Number(data.price),
-      discount_price : Number(data.discount_price),
-      inv : Number(data.inv)
+      variants: [...finalVariants],
+      image: product_store?.image,
+      price: Number(data.price),
+      discount_price: Number(data.discount_price),
+      inv: Number(data.inv),
     };
-    console.log(formData)
-//     try{
+    console.log(formData);
+    //     try{
 
-//     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/", 
-//         formData
-        
-//     )
-//     if(res_data){
-//       router.refresh()
-//       router.push("/")
-//     }
-// }
-// catch(err){
-//     console.log(err.message)
-//     setError(err.message)
-// }
-    
-    await formSubmission(formData);
+    //     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/",
+    //         formData
+
+    //     )
+    //     if(res_data){
+    //       router.refresh()
+    //       router.push("/")
+    //     }
+    // }
+    // catch(err){
+    //     console.log(err.message)
+    //     setError(err.message)
+    // }
+
+    // await formSubmission(formData);
   };
 
   return (
@@ -103,12 +111,14 @@ product_store?.sub_category
         className="mx-auto object-cover aspect-square"
       />
       <label>
-        <span className="mb-2 block font-semibold">{formPage.item_name}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.item_name[langNum]}
+        </span>
         <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center">
           <input
             type="text"
-            defaultValue={product_store?.name}
-            placeholder={formPage.item_name}
+            defaultValue={product_store?.name[langNum]}
+            placeholder={formPage.item_name[langNum]}
             className="w-9/12 outline-none"
             maxLength={100}
             {...register("name", {
@@ -131,10 +141,12 @@ product_store?.sub_category
         )}
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.sku_id}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.sku_id[langNum]}
+        </span>
         <input
           type="text"
-          placeholder={formPage.sku_id}
+          placeholder={formPage.sku_id[langNum]}
           defaultValue={product_store?.sku}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("sku_id", {
@@ -146,30 +158,35 @@ product_store?.sub_category
         )}
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.description}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.description[langNum]}
+        </span>
         <textarea
           type="text"
-          defaultValue={product_store?.description}
-          placeholder={formPage.description}
+          defaultValue={product_store?.description[langNum]}
+          placeholder={formPage.description[langNum]}
           className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
           {...register("description", { required: true })}
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.quantity}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.quantity[langNum]}
+        </span>
         <input
           type="number"
-          placeholder={formPage.quantity}
+          placeholder={formPage.quantity[langNum]}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("inv", { required: true })}
-        
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.price}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.price[langNum]}
+        </span>
         <input
           type="number"
-          placeholder={formPage.price}
+          placeholder={formPage.price[langNum]}
           defaultValue={product_store?.price}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("price", { required: true })}
@@ -177,30 +194,37 @@ product_store?.sub_category
       </label>
 
       <label>
-        <span className="mb-2 block font-semibold">{formPage.discount_price}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.discount_price[langNum]}
+        </span>
         <input
           type="text"
-          placeholder={formPage.discount_price}
+          placeholder={formPage.discount_price[langNum]}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("discount_price", { required: true })}
         />
       </label>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.category}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.category[langNum]}
+        </span>
         <input
           type="text"
-          placeholder={formPage.category}
+          placeholder={formPage.category[langNum]}
           defaultValue={product_store?.category}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />
       </label>
       <div>
-        <span className="mb-2 block font-semibold"> {formPage.sub_category}</span>
+        <span className="mb-2 block font-semibold">
+          {" "}
+          {formPage.sub_category[langNum]}
+        </span>
         <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
           <input
             type="text"
-            placeholder={formPage.sub_category}
+            placeholder={formPage.sub_category[langNum]}
             className="outline-none border-none w-10/12"
             value={subCategory}
             onChange={(e) => setSubCategory(e.target.value)}
@@ -239,11 +263,13 @@ product_store?.sub_category
         </div>
       </div>
       <label>
-        <span className="mb-2 block font-semibold">{formPage.variants}</span>
+        <span className="mb-2 block font-semibold">
+          {formPage.variants[langNum]}
+        </span>
         <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
           <input
             type="text"
-            placeholder={formPage.variants}
+            placeholder={formPage.variants[langNum]}
             //   defaultValue={product_store?.variant}
             className="w-10/12 outline-none"
             // {...register("variant")}
@@ -262,7 +288,7 @@ product_store?.sub_category
         <div className="my-5 flex flex-wrap gap-2">
           {variantsOptions &&
             variantsOptions?.length > 0 &&
-            variantsOptions.map((list,i) => (
+            variantsOptions.map((list, i) => (
               <Badge
                 variant="outline"
                 className="px-4 py-2 font-normal text-md cursor-pointer"
@@ -274,8 +300,8 @@ product_store?.sub_category
             ))}
         </div>
         <span>
-          {finalVariants.map((variant,i) => (
-            <React.Fragment key ={i}>
+          {finalVariants.map((variant, i) => (
+            <React.Fragment key={i}>
               <label className="font-semibold mt-3">
                 {Object.keys(variant)[0]}
               </label>
@@ -308,8 +334,11 @@ product_store?.sub_category
       </label>
 
       {/* {JSON.stringify(product_store)} */}
-    {error  && <p>{error}</p>}
-    <SubmitButton isLoading = {isLoading}/>
+      {error && <p>{error}</p>}
+      <SubmitButton
+        isLoading={isLoading}
+        buttonContent={formPage.button[langNum]}
+      />
     </form>
   );
 };

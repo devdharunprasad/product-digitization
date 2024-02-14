@@ -15,8 +15,8 @@ const LanguageDropDown = () => {
     const {langNum, changeLangNum} = useLangNumStore(state => state)
     console.log({langNum})
   return (
-    <div className="fixed top-5 right-5">
-      <Select onValueChange={(e) => changeLangNum(e)}>
+    <div className="">
+      <Select onValueChange={(e) => changeLangNum(e)} >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Lang" />
         </SelectTrigger>
