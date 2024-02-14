@@ -1,5 +1,7 @@
 "use client";
 import LoadingSpinner from "@/app/shared/loading/loading-spinner";
+import { duplicate } from "@/app/shared/utils/lang";
+import { useLangNumStore } from "@/app/zustand/store";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,6 +22,8 @@ import { DotsThreeVertical } from "phosphor-react";
 import React, { useState } from "react";
 
 const PopupButton = ({ product_id, catalog_id }) => {
+
+  const {langNum} = useLangNumStore(state => state)
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
   const handleDelte = async (id) => {
@@ -44,7 +48,7 @@ const PopupButton = ({ product_id, catalog_id }) => {
           <DotsThreeVertical size={25} />
         </PopoverTrigger>
         <PopoverContent className="w-fit flex flex-col" align="end">
-          <Link href={`/duplicate/${catalog_id}`}>Duplicate</Link>
+          <Link href={`/duplicate/${catalog_id}`}>{duplicate[langNum]}</Link>
           <Dialog>
             {/* <DialogTrigger className="text-left">Delete</DialogTrigger> */}
             <DialogContent>

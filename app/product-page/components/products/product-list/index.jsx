@@ -3,6 +3,8 @@ import { product_list } from "@/app/temp/dataset";
 import ProductItem from "../product-item";
 import { cookies } from "next/headers";
 import axios from "axios";
+import { productError } from "@/app/shared/utils/lang";
+import ProductError from "../error/productError";
 
 
 const ProductList = async () => {
@@ -40,7 +42,7 @@ const final_product_list = product_list_v1.flatMap(product => product)
       <div className="grid grid-cols-1 gap-5">
         {error}
         <p className="text-primary text-center">
-        {product_list_data?.message}
+        {product_list_data?.message && <ProductError/> } 
         </p>
         {Array.isArray(final_product_list) && final_product_list?.map((product,i) => {
           return (

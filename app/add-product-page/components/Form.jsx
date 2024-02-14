@@ -36,7 +36,6 @@ const FormSection = ({ formPage }) => {
   const [finalVariants, setFinalVariants] = useState(
     product_store?.variants || []
   );
-  console.log({ finalVariants });
   const {
     register,
     handleSubmit,
@@ -71,6 +70,7 @@ const FormSection = ({ formPage }) => {
       description: product_store.description.map((desc, i) =>
         i === langNum ? data.description : desc
       ),
+      category : data.category,
       sub_categories: subCategoryList,
       variants: [...finalVariants],
       image: product_store?.image,
@@ -95,7 +95,7 @@ const FormSection = ({ formPage }) => {
     //     setError(err.message)
     // }
 
-    // await formSubmission(formData);
+    await formSubmission(formData);
   };
 
   return (

@@ -26,7 +26,7 @@ match(languages, locales, defaultLocale) // -> 'en-US'
     const uid = cookieStore.has("uid")
     const uidvalue = cookieStore.get("uid")
 
-        console.log({uid})
+        console.log({uidvalue})
     if( !uid &&  req.nextUrl.pathname !==  "/login"){
         return NextResponse.redirect(`${req.nextUrl.origin}/login`)
     }

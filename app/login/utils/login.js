@@ -19,6 +19,7 @@ export const login = async (formData) => {
       password,
     }
   );
+  console.log(data)
   if (data) {
     cookieStore.set("username", username);
     cookieStore.set("password", password);

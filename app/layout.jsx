@@ -1,5 +1,4 @@
 import "./globals.css";
-import LanguageDropDown from "./shared/languageDropdown";
 import { poppins } from "./utils/font";
 import 'regenerator-runtime/runtime';
 
@@ -15,7 +14,6 @@ export default function RootLayout({ children }) {
       <body className={poppins.className}>
         <main className="max-w-[500px] mx-auto">
         {children}
-          <LanguageDropDown/>
         </main>
         </body>
     </html>

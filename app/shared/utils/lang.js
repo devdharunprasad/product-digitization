@@ -6,10 +6,12 @@
 const lang =  "eng"
 
 export const productTitle = ["Product Catalouge", "பொருட்களின் பட்டியல்", "Hindi Catalogue"]
+export const productError = ["No products found", "பொருட்கள் எதுவும் இல்லை", "कोई उत्पाद नहीं मिला"]
 export const addProductButton = ["Add Products", "பொருளைச் சேர்க்கவும்", "Hindi Add Button"]
 export const captureImage = ["Capture Image", "படம் பிடிக்கவும்", "Hindi Capture"]
 export const uploadImage = ["Upload Image", "பதிவேற்றம் செய்", "Hindi Upload"]
-
+export const productItem = ["In Stock", "கையிருப்பில்", "स्टॉक में"]
+export const duplicate = ["Duplicate", "நகல்", "डुप्लिकेट"]
 export const loginPage = {
   title : ["Login", "உள்நுழைய", "Hindi Login"],
   name_field : ["Name", "பெயர்", "Hindi Name"],

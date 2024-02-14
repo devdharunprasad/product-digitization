@@ -11,7 +11,7 @@ const ProductClientComponents = ({ children }) => {
     const {langNum} = useLangNumStore(state => state)
   return (
     <div>
-      <PageTitle title={productTitle[langNum]} icon={"Product"} />
+      <PageTitle title={productTitle[langNum]} icon={"Product"} isDropDownVisible = {true} />
       {children}
       <div className="fixed bottom-5 w-full left-1/2 transform -translate-x-1/2 max-w-[500px]">
         <AddProducts addProductButtonContent={addProductButton[langNum]} />
