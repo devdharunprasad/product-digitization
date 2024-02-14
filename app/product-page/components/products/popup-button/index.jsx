@@ -1,6 +1,6 @@
 "use client";
 import LoadingSpinner from "@/app/shared/loading/loading-spinner";
-import { duplicate } from "@/app/shared/utils/lang";
+import { deleteContents, duplicate } from "@/app/shared/utils/lang";
 import { useLangNumStore } from "@/app/zustand/store";
 import { Button } from "@/components/ui/button";
 import {
@@ -50,21 +50,22 @@ const PopupButton = ({ product_id, catalog_id }) => {
         <PopoverContent className="w-fit flex flex-col" align="end">
           <Link href={`/duplicate/${catalog_id}`}>{duplicate[langNum]}</Link>
           <Dialog>
-            {/* <DialogTrigger className="text-left">Delete</DialogTrigger> */}
+            <DialogTrigger className="text-left">{deleteContents.trigger[langNum]}</DialogTrigger>
             <DialogContent>
-              <DialogTitle>Do you want to delete?</DialogTitle>
+              <DialogTitle>{deleteContents.title[langNum]}</DialogTitle>
               {isLoading ? (
                 <LoadingSpinner  color="green"/>
               ) : (
                 <div className="flex justify-center gap-5 items-center">
                   <DialogClose className="bg-primary px-4 py-2 rounded-md text-white">
-                    No
+                    {deleteContents.noButton[langNum]}
                   </DialogClose>
+                  
                   <Button
                     variant="outline"
                     onClick={() => handleDelte(product_id)}
                   >
-                    Delete
+                    {deleteContents.yesButton[langNum]}
                   </Button>
                 </div>
               )}

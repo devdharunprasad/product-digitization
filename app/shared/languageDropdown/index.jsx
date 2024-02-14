@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useLangNumStore } from "@/app/zustand/store";
 import {
   Select,
@@ -9,26 +9,25 @@ import {
 } from "@/components/ui/select";
 import React from "react";
 
-const LANG = ["Eng", "Tam", "Hin" ]
+const LANG = ["English", "தமிழ்", "हिंदी"];
 
 const LanguageDropDown = () => {
-    const {langNum, changeLangNum} = useLangNumStore(state => state)
-    console.log({langNum})
+  const { langNum, changeLangNum } = useLangNumStore((state) => state);
+  console.log({ langNum });
   return (
     <div className="">
-      <Select onValueChange={(e) => changeLangNum(e)} >
+      <Select onValueChange={(e) => changeLangNum(e)}>
         <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Lang" />
+          <SelectValue placeholder={LANG[langNum]} />
         </SelectTrigger>
         <SelectContent>
-            {LANG.map((lang, index) => (
-          <SelectItem key = {lang} value={index}>{lang}</SelectItem>
-
-            ))}
-        
+          {LANG.map((lang, index) => (
+            <SelectItem key={lang} value={index}>
+              {lang}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
-      
     </div>
   );
 };

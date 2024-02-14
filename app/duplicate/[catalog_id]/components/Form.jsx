@@ -9,6 +9,7 @@ import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
+import { formPage } from "@/app/shared/utils/lang";
 
 const FormSection = ({ product_data }) => {
   const router = useRouter();
@@ -63,6 +64,12 @@ const FormSection = ({ product_data }) => {
 
     const formData = {
       ...data,
+      name: product_store.name.map((name, i) =>
+        i === langNum ? data.name : name
+      ),
+      description: product_store.description.map((desc, i) =>
+        i === langNum ? data.description : desc
+      ),
       sub_categories: subCategoryList,
       variants: finalVariants,
       image: product_store?.image,
@@ -104,11 +111,13 @@ const FormSection = ({ product_data }) => {
       className="mx-auto object-cover aspect-square"
     />
     <label>
-      <span className="mb-2 block font-semibold">{formPage.item_name[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.item_name[langNum]}
+      </span>
       <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center">
         <input
           type="text"
-          defaultValue={product_store?.name}
+          defaultValue={product_store?.name[langNum]}
           placeholder={formPage.item_name[langNum]}
           className="w-9/12 outline-none"
           maxLength={100}
@@ -132,7 +141,9 @@ const FormSection = ({ product_data }) => {
       )}
     </label>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.sku_id[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.sku_id[langNum]}
+      </span>
       <input
         type="text"
         placeholder={formPage.sku_id[langNum]}
@@ -147,27 +158,32 @@ const FormSection = ({ product_data }) => {
       )}
     </label>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.description[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.description[langNum]}
+      </span>
       <textarea
         type="text"
-        defaultValue={product_store?.description}
+        defaultValue={product_store?.description[langNum]}
         placeholder={formPage.description[langNum]}
         className="border border-gray-400 w-full h-32 pt-3 px-3 rounded-lg"
         {...register("description", { required: true })}
       />
     </label>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.quantity[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.quantity[langNum]}
+      </span>
       <input
         type="number"
         placeholder={formPage.quantity[langNum]}
         className="border border-gray-400 w-full h-14 px-3 rounded-lg"
         {...register("inv", { required: true })}
-      
       />
     </label>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.price[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.price[langNum]}
+      </span>
       <input
         type="number"
         placeholder={formPage.price[langNum]}
@@ -178,7 +194,9 @@ const FormSection = ({ product_data }) => {
     </label>
 
     <label>
-      <span className="mb-2 block font-semibold">{formPage.discount_price[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.discount_price[langNum]}
+      </span>
       <input
         type="text"
         placeholder={formPage.discount_price[langNum]}
@@ -187,7 +205,9 @@ const FormSection = ({ product_data }) => {
       />
     </label>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.category[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.category[langNum]}
+      </span>
       <input
         type="text"
         placeholder={formPage.category[langNum]}
@@ -197,7 +217,10 @@ const FormSection = ({ product_data }) => {
       />
     </label>
     <div>
-      <span className="mb-2 block font-semibold"> {formPage.sub_category[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {" "}
+        {formPage.sub_category[langNum]}
+      </span>
       <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
         <input
           type="text"
@@ -240,7 +263,9 @@ const FormSection = ({ product_data }) => {
       </div>
     </div>
     <label>
-      <span className="mb-2 block font-semibold">{formPage.variants[langNum]}</span>
+      <span className="mb-2 block font-semibold">
+        {formPage.variants[langNum]}
+      </span>
       <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
         <input
           type="text"
@@ -263,7 +288,7 @@ const FormSection = ({ product_data }) => {
       <div className="my-5 flex flex-wrap gap-2">
         {variantsOptions &&
           variantsOptions?.length > 0 &&
-          variantsOptions.map((list,i) => (
+          variantsOptions.map((list, i) => (
             <Badge
               variant="outline"
               className="px-4 py-2 font-normal text-md cursor-pointer"
@@ -275,8 +300,8 @@ const FormSection = ({ product_data }) => {
           ))}
       </div>
       <span>
-        {finalVariants.map((variant,i) => (
-          <React.Fragment key ={i}>
+        {finalVariants.map((variant, i) => (
+          <React.Fragment key={i}>
             <label className="font-semibold mt-3">
               {Object.keys(variant)[0]}
             </label>
@@ -309,8 +334,11 @@ const FormSection = ({ product_data }) => {
     </label>
 
     {/* {JSON.stringify(product_store)} */}
-  {error  && <p>{error}</p>}
-  <SubmitButton isLoading = {isLoading} buttonContent = {formPage.button[langNum]}/>
+    {error && <p>{error}</p>}
+    <SubmitButton
+      isLoading={isLoading}
+      buttonContent={formPage.button[langNum]}
+    />
   </form>
   );
 };

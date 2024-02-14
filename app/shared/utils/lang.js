@@ -12,6 +12,13 @@ export const captureImage = ["Capture Image", "படம் பிடிக்�
 export const uploadImage = ["Upload Image", "பதிவேற்றம் செய்", "Hindi Upload"]
 export const productItem = ["In Stock", "கையிருப்பில்", "स्टॉक में"]
 export const duplicate = ["Duplicate", "நகல்", "डुप्लिकेट"]
+export const deleteContents = {
+  trigger : ["Delete","அழி","मिटाना"],
+  title : ["Do you want to delete it ?", "இதை நீக்க வேண்டுமா?", "क्या आप इसे हटाना चाहते हैं?"],
+  yesButton : ["Yes", "ஆம்", "हाँ"],
+  noButton : ["No", "இல்லை","नहीं" ]
+}
+
 export const loginPage = {
   title : ["Login", "உள்நுழைய", "Hindi Login"],
   name_field : ["Name", "பெயர்", "Hindi Name"],
