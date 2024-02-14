@@ -2,9 +2,8 @@ import LoadingSpinner from "@/app/shared/loading/loading-spinner";
 import React from "react";
 import { useFormStatus } from "react-dom";
 
-const SubmitButton = ({loginPage}) => {
-  const { pending } = useFormStatus();
-  const button = loginPage.button
+const SubmitButton = ({button}) => {
+ const {pending} = useFormStatus()
   return (
     <button
       aria-disabled={pending}

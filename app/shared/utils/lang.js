@@ -5,41 +5,26 @@
 // const lang = cookieStore.get("lang").value;
 const lang =  "eng"
 
-export const productTitle = () =>
-  (lang === "eng" && "Product Catalouge") ||
-  (lang === "tam" && "பொருட்களின் பட்டியல்");
-export const addProductButton = () =>
-  (lang === "eng" && "Add Products") ||
-  (lang === "tam" && "பொருளைச் சேர்க்கவும்");
+export const productTitle = ["Product Catalouge", "பொருட்களின் பட்டியல்", "Hindi Catalogue"]
+export const addProductButton = ["Add Products", "பொருளைச் சேர்க்கவும்", "Hindi Add Button"]
 
-export const loginPage = () => ({
-  title: (lang === "eng" && "Login") || (lang === "tam" && "உள்நுழைய"),
-  name_field: (lang === "eng" && "Name") || (lang === "tam" && "பெயர்"),
-  pass_field:
-    (lang === "eng" && "Password") || (lang === "tam" && "கடவுச்சொல்"),
-  button: (lang === "eng" && "Submit") || (lang === "tam" && "சமர்ப்பிக்கவும்"),
-  isNew: (lang === "eng" && "New?") || (lang === "tam" && "புதியது?"),
-  choose:
-    (lang === "eng" && "Choose your language") ||
-    (lang === "tam" && "உங்கள் மொழியை தேர்வு செய்யவும்"),
-  register:
-    (lang === "eng" && "register") || (lang === "tam" && "பதிவு செய்யுங்கள்"),
-});
+export const loginPage = {
+  title : ["Login", "உள்நுழைய", "Hindi Login"],
+  name_field : ["Name", "பெயர்", "Hindi Name"],
+  pass_field: ["Password", "கடவுச்சொல்", "Hindi Pass"],
+  button : ["Submit", "சமர்ப்பிக்கவும்", "Hindi Submit"],
+  isNew: ["New?", "புதியது?"],
+  register: ["register", "பதிவு செய்யுங்கள்"]
+};
 
-export const registerPage = () => ({
-  title: (lang === "eng" && "Register") || (lang === "tam" && "பதிவு"),
-  name_field: (lang === "eng" && "Name") || (lang === "tam" && "பெயர்"),
-  pass_field:
-    (lang === "eng" && "Password") || (lang === "tam" && "கடவுச்சொல்"),
-  button: (lang === "eng" && "Submit") || (lang === "tam" && "சமர்ப்பிக்கவும்"),
-  isNew:
-    (lang === "eng" && "Already Registered?") ||
-    (lang === "tam" && "ஏற்கனவே பதிவு செய்யப்பட்டது?"),
-  choose:
-    (lang === "eng" && "Choose your language") ||
-    (lang === "tam" && "உங்கள் மொழியை தேர்வு செய்யவும்"),
-  login: (lang === "eng" && "login") || (lang === "tam" && "உள்நுழைய"),
-});
+export const registerPage = {
+  title : ["Register", "பதிவு செய்", "Hindi Login"],
+  name_field : ["Name", "பெயர்", "Hindi Name"],
+  pass_field: ["Password", "கடவுச்சொல்", "Hindi Pass"],
+  button : ["Submit", "சமர்ப்பிக்கவும்", "Hindi Submit"],
+  isNew: ["Already Registered?", "ஏற்கனவே பதிவு செய்யப்பட்டது?"],
+  login: ["login", "உள்நுழைய"]
+}
 
 export const loadingMessages = () => ({
   network:
