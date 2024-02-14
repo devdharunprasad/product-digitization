@@ -17,7 +17,7 @@ const FormSection = ({ formPage }) => {
 
   const { langNum } = useLangNumStore((state) => state);
 
-  const [imageUrl, setImageUrl] = useState("/default-product.png")
+  const [imageUrl, setImageUrl] = useState("/default-product.png");
 
   const { product_store } = useProductStore((state) => state);
   console.log({ product_store });
@@ -62,9 +62,6 @@ const FormSection = ({ formPage }) => {
     setFinalVariants(variants);
   };
 
-
-
-
   const onSubmit = async (data) => {
     setIsLoading(true);
 
@@ -83,7 +80,7 @@ const FormSection = ({ formPage }) => {
       discount_price: Number(data.discount_price),
       inv: Number(data.inv),
     };
-  console.log({formData});
+    console.log({ formData });
     //     try{
 
     //     const {data : res_data} = await axios.post("https://ondchackathon-production.up.railway.app/add_to_catalog/",
@@ -103,12 +100,14 @@ const FormSection = ({ formPage }) => {
     await formSubmission(formData);
   };
 
-  const handleUploadImage = async(e) => {
+  const handleUploadImage = async (e) => {
+    setIsLoading(true);
+    setError(null);
     const uploaded_file = e.target.files[0];
     if (uploaded_file) {
       const formData = new FormData();
       formData.append("uploaded_file", uploaded_file, uploaded_file.name);
-      console.log(formData)
+      console.log(formData);
       const { data } = await axios.post(
         "https://apiservicegcloudbucket-production.up.railway.app/get_url",
 
@@ -116,25 +115,36 @@ const FormSection = ({ formPage }) => {
       );
       console.log(data);
       if (data) {
-        setImageUrl(data)
+        setImageUrl(data);
+        setIsLoading(false);
+      } else {
+        setIsLoading(false);
+        setError("Oops somethign went wrong");
       }
-  }
-  }
+    }
+  };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="center-section flex flex-col gap-5"
     >
       <div className="relative h-[250px] flex items-end justify-center">
-      <Image
-        src={product_store?.image || imageUrl}
-        width={200}
-        height={200}
-        alt={product_store?.name}
-        className="mx-auto object-cover aspect-square rounded-md absolute top-0 left-0 bottom-0 right-0"
-      />
-      <input type = "file" className="h-[250px] w-full absolute top-0 left-0 bottom-0 right-0 border opacity-0" onChange={(e) => handleUploadImage(e)} />
-      <p className="text-center mt-auto">Upload Image</p>
+        <Image
+          src={product_store?.image || imageUrl}
+          width={200}
+          height={200}
+          alt={product_store?.name}
+          className="mx-auto object-cover aspect-square rounded-md absolute top-0 left-0 bottom-0 right-0"
+        />
+        <input
+          type="file"
+          accept="image/*"
+          className="h-[250px] w-full absolute top-0 left-0 bottom-0 right-0 border opacity-0"
+          onChange={(e) => handleUploadImage(e)}
+        />
+        <p className="text-center mt-auto">
+          {isLoading ? `Loading...` : `Upload Image`}
+        </p>
       </div>
       <label>
         <span className="mb-2 block font-semibold">
