@@ -63,7 +63,7 @@ const PopupButton = ({ product_id, catalog_id }) => {
                   
                   <Button
                     variant="outline"
-                    onClick={() => handleDelte(product_id)}
+                    onClick={() => handleDelte(catalog_id)}
                   >
                     {deleteContents.yesButton[langNum]}
                   </Button>
