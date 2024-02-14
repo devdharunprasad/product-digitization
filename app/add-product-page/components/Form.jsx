@@ -62,7 +62,7 @@ const FormSection = ({ formPage }) => {
 
 
   // Categories manipulation
-  const categories_tweaked = product_store?.category?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","")
+  const categories_tweaked = Array.isArray(product_store?.category) ? product_store?.category[0]?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","") :  product_store?.category?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","")
   console.log({categories_tweaked})
 
 
@@ -105,18 +105,27 @@ const FormSection = ({ formPage }) => {
     await formSubmission(formData);
   };
 
+  const handleImageUpload = async(e) => {
+ 
+    // const {data} = await axios.post("https://apiservicegcloudbucket-production.up.railway.app/get_url", e.target.files[0])
+    // console.log
+  }
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="center-section flex flex-col gap-5"
     >
+      <div className="relative h-[250px]">
       <Image
         src={product_store?.image || "/default-product.png"}
         width={200}
         height={200}
         alt={product_store?.name}
-        className="mx-auto object-cover aspect-square"
+        className="mx-auto object-cover aspect-square absolute top-0 left-0 bottom-0 right-0"
       />
+      <input type = "file" className="h-[200px] w-full absolute top-0 left-0 bottom-0 right-0 border opacity-0" onChange={(e) => handleImageUpload(e)} />
+      </div>
       <label>
         <span className="mb-2 block font-semibold">
           {formPage.item_name[langNum]}
@@ -218,94 +227,17 @@ const FormSection = ({ formPage }) => {
         <input
           type="text"
           placeholder={formPage.category[langNum]}
-          defaultValue={product_store?.category}
+          defaultValue={Array.isArray(product_store?.category) ? product_store?.category[0].toLowerCase().replaceAll("&","n").replaceAll(" ","").replaceAll(",","")[langNum] :  categories[product_store?.category.toLowerCase().replaceAll("&","n").replaceAll(" ","").replaceAll(",","")][langNum]}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />
       </label>
-      <div>
-        <span className="mb-2 block font-semibold">
-          {" "}
-          {formPage.sub_category[langNum]}
-        </span>
-        <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
-          <input
-            type="text"
-            placeholder={formPage.sub_category[langNum]}
-            className="outline-none border-none w-10/12"
-            value={subCategory}
-            onChange={(e) => setSubCategory(e.target.value)}
-          />
-          <PaperPlaneRight
-            size={20}
-            onClick={() => {
-              setSubCategoryList((prev) =>
-                subCategory.length > 0 ? [...prev, subCategory] : [...prev]
-              );
-              setSubCategory("");
-            }}
-          />
-        </label>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {subCategoryList &&
-            subCategoryList?.length > 0 &&
-            subCategoryList.map((list) => (
-              <Badge
-                variant="outline"
-                className="px-4 py-3 text-md flex items-center gap-2"
-                key={list}
-              >
-                <span>{list}</span>
-                <X
-                  size={15}
-                  color="red"
-                  onClick={() =>
-                    setSubCategoryList(
-                      subCategoryList?.filter((sub) => list !== sub && sub)
-                    )
-                  }
-                />
-              </Badge>
-            ))}
-        </div>
-      </div>
+   
       <label>
         <span className="mb-2 block font-semibold">
           {formPage.variants[langNum]}
         </span>
-        <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
-          <input
-            type="text"
-            placeholder={formPage.variants[langNum]}
-            //   defaultValue={product_store?.variant}
-            className="w-10/12 outline-none"
-            // {...register("variant")}
-            value={currentVariant}
-            onChange={(e) => setCurrentVariant(e.target.value)}
-          />
-
-          {currentVariant?.length > 0 && (
-            <PaperPlaneRight
-              size={20}
-              className="ml-auto"
-              onClick={() => addVariants(currentVariant)}
-            />
-          )}
-        </div>
-        <div className="my-5 flex flex-wrap gap-2">
-          {variantsOptions &&
-            variantsOptions?.length > 0 &&
-            variantsOptions.map((list, i) => (
-              <Badge
-                variant="outline"
-                className="px-4 py-2 font-normal text-md cursor-pointer"
-                key={i}
-                onClick={() => addVariants(list)}
-              >
-                {list}{" "}
-              </Badge>
-            ))}
-        </div>
+       
         <span>
           {finalVariants.map((variant, i) => (
             <React.Fragment key={i}>

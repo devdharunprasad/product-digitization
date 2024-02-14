@@ -1,7 +1,7 @@
 "use client";
 
 import LoadingPopup from "@/app/shared/loading/loading-popup";
-import { captureImage, uploadImage } from "@/app/shared/utils/lang";
+import { captureImage, uploadImage, voiceInput } from "@/app/shared/utils/lang";
 import { useLangNumStore, useProductStore } from "@/app/zustand/store";
 import {
   Popover,
@@ -98,7 +98,7 @@ const AddProducts = ({addProductButtonContent}) => {
             </div>
             <Link href="/voice-input" className="flex items-center gap-2 h-8">
               <Microphone size={20} />
-              <span></span>
+              <span>{voiceInput[langNum]}</span>
             </Link>
           </PopoverContent>
         )}

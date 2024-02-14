@@ -77,6 +77,16 @@ export const formPage = {
 }
 
 export const categories = {
+  fruitsnvegetables: ["Fruits & Vegetables", "பழங்கள் & காய்கறிகள்", "फल और सब्जियाँ"],
+  foodgrainsoilnmasala: ["Foodgrains, Oil & Masala", "பழுப்புகள், எண்ணெய் & மசாலா", "अनाज, तेल और मसाला"],
+  bakerycakesndairy: ["Bakery, Cakes & Dairy", "பேக்கரி, கேக்ஸ் & டேரி", "बेकरी, केक और डेयरी"],
+  beverages: ["Beverages", "பானங்கள்", "पेय"],
+  snacksnbrandedfoods: ["Snacks & Branded Foods", "உணவு சுருக்கங்கள் & பிராண்டெட் உணவுகள்", "स्नैक्स और ब्रांडेड खाद्य"],
+  beautynhygiene: ["Beauty & Hygiene", "அழகு & சுத்தம்", "सौंदर्य और स्वच्छता"],
+  cleaningnhousehold: ["Cleaning & Household", "சுத்தம் & வீட்டு பொருள்கள்", "सफाई और घरेलू"]
+};
+
+export const sub_categories = {
   freshvegetables: ["Fresh Vegetables", "புதிய காய்கறிகள்", "ताज़ी सब्जियां"],
   herbsandseasonings: ["Herbs & Seasonings", "மூலிகைகள் & சீசனிங்", "जड़ी-बूटियाँ & मसाले"],
   slicedpeeledveggies: ["Sliced & Peeled Veggies", "சிலியானுள்ள மற்றும் தோட்டப்பட்ட காய்கறிகள்", "वर्किंग & छिलका हुआ सब्जी"],
@@ -110,7 +120,7 @@ export const categories = {
   noodlepastavermicelli: ["Noodle, Pasta, Vermicelli", "நூடுல், பாஸ்தா, வெர்மிசெல்லி", "नूडल, पास्ता, वर्मिसेली"],
   pickleschutney: ["Pickles & Chutney", "உருக்கடலைகள் & சட்னி", "अचार और चटनी"],
   readytocookeat: ["Ready To Cook & Eat", "சாப்பிடலாம் & உண்ணும் உடன்", "तैयार पकाने और खाने के लिए"],
-  snacksnamkeen: ["Snacks & Namkeen", "உணவு மகளிர் மற்றும் நம்கீன்", "स्नैक्स और नमकीन"],
+  snacksnnamkeen: ["Snacks & Namkeen", "உணவு மகளிர் மற்றும் நம்கீன்", "स्नैक्स और नमकीन"],
   spreadssaucesketchup: ["Spreads, Sauces, Ketchup", "பரப்புகள், சாவ்ஸ், கெசப்பு", "स्प्रेड, सॉस, कैचअप"],
   vegsnacks: ["Veg Snacks", "காய்கறி உணவுகள்", "वेज स्नैक्स"],
   bathhandwash: ["Bath & Hand Wash", "குளியல் & கை கழுவுதல்", "नहाने और हाथ धोने का सामान"],

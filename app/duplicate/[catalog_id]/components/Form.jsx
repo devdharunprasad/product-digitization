@@ -9,7 +9,7 @@ import { formSubmission } from "../utils/form-submission";
 import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
-import { formPage } from "@/app/shared/utils/lang";
+import { categories, formPage } from "@/app/shared/utils/lang";
 
 const FormSection = ({ product_data }) => {
   const router = useRouter();
@@ -17,7 +17,7 @@ const FormSection = ({ product_data }) => {
 
   const { product, catalog } = product_data;
   const product_store = { ...product, ...catalog };
-
+console.log({product_store})
   const [subCategoryList, setSubCategoryList] = useState(
     product_store?.sub_categories
   );
@@ -205,133 +205,57 @@ const FormSection = ({ product_data }) => {
       />
     </label>
     <label>
-      <span className="mb-2 block font-semibold">
-        {formPage.category[langNum]}
-      </span>
-      <input
-        type="text"
-        placeholder={formPage.category[langNum]}
-        defaultValue={product_store?.category}
-        className="border border-gray-400 w-full h-14 px-3 rounded-lg"
-        {...register("category", { required: true })}
-      />
-    </label>
-    <div>
-      <span className="mb-2 block font-semibold">
-        {" "}
-        {formPage.sub_category[langNum]}
-      </span>
-      <label className="border border-gray-400 w-full h-14 px-3 rounded-lg flex justify-between items-center">
+        <span className="mb-2 block font-semibold">
+          {formPage.category[langNum]}
+        </span>
         <input
           type="text"
-          placeholder={formPage.sub_category[langNum]}
-          className="outline-none border-none w-10/12"
-          value={subCategory}
-          onChange={(e) => setSubCategory(e.target.value)}
-        />
-        <PaperPlaneRight
-          size={20}
-          onClick={() => {
-            setSubCategoryList((prev) =>
-              subCategory.length > 0 ? [...prev, subCategory] : [...prev]
-            );
-            setSubCategory("");
-          }}
+          placeholder={formPage.category[langNum]}
+          defaultValue={Array.isArray(product_store?.category) ? product_store?.category[0].toLowerCase().replaceAll("&","n").replaceAll(" ","").replaceAll(",","")[langNum] :  categories[product_store?.category.toLowerCase().replaceAll("&","n").replaceAll(" ","").replaceAll(",","")][langNum]}
+          className="border border-gray-400 w-full h-14 px-3 rounded-lg"
+          {...register("category", { required: true })}
         />
       </label>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {subCategoryList &&
-          subCategoryList?.length > 0 &&
-          subCategoryList.map((list) => (
-            <Badge
-              variant="outline"
-              className="px-4 py-3 text-md flex items-center gap-2"
-              key={list}
-            >
-              <span>{list}</span>
-              <X
-                size={15}
-                color="red"
-                onClick={() =>
-                  setSubCategoryList(
-                    subCategoryList?.filter((sub) => list !== sub && sub)
-                  )
-                }
-              />
-            </Badge>
+    
+  
+      <label>
+        <span className="mb-2 block font-semibold">
+          {formPage.variants[langNum]}
+        </span>
+       
+        <span>
+          {finalVariants.map((variant, i) => (
+            <React.Fragment key={i}>
+              <label className="font-semibold mt-3">
+                {Object.keys(variant)[0]}
+              </label>
+              <div className="border border-gray-400 mb-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
+                <input
+                  className="w-10/12 outline-none"
+                  onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
+                  required
+                />
+                <Trash
+                  color="red"
+                  size={20}
+                  className="ml-5"
+                  onClick={(item) => {
+                    if (finalVariants.length === 1) setFinalVariants([]);
+                    setFinalVariants(
+                      finalVariants.filter(
+                        (final) =>
+                          Object.keys(final)[0] !== Object.keys(variant)[0] && {
+                            ...final,
+                          }
+                      )
+                    );
+                  }}
+                />
+              </div>
+            </React.Fragment>
           ))}
-      </div>
-    </div>
-    <label>
-      <span className="mb-2 block font-semibold">
-        {formPage.variants[langNum]}
-      </span>
-      <div className="border border-gray-400 w-full h-14 px-3 rounded-lg flex items-center space-between">
-        <input
-          type="text"
-          placeholder={formPage.variants[langNum]}
-          //   defaultValue={product_store?.variant}
-          className="w-10/12 outline-none"
-          // {...register("variant")}
-          value={currentVariant}
-          onChange={(e) => setCurrentVariant(e.target.value)}
-        />
-
-        {currentVariant?.length > 0 && (
-          <PaperPlaneRight
-            size={20}
-            className="ml-auto"
-            onClick={() => addVariants(currentVariant)}
-          />
-        )}
-      </div>
-      <div className="my-5 flex flex-wrap gap-2">
-        {variantsOptions &&
-          variantsOptions?.length > 0 &&
-          variantsOptions.map((list, i) => (
-            <Badge
-              variant="outline"
-              className="px-4 py-2 font-normal text-md cursor-pointer"
-              key={i}
-              onClick={() => addVariants(list)}
-            >
-              {list}{" "}
-            </Badge>
-          ))}
-      </div>
-      <span>
-        {finalVariants.map((variant, i) => (
-          <React.Fragment key={i}>
-            <label className="font-semibold mt-3">
-              {Object.keys(variant)[0]}
-            </label>
-            <div className="border border-gray-400 mb-3 w-full h-14 px-3 rounded-lg flex justify-between items-center">
-              <input
-                className="w-10/12 outline-none"
-                onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
-                required
-              />
-              <Trash
-                color="red"
-                size={20}
-                className="ml-5"
-                onClick={(item) => {
-                  if (finalVariants.length === 1) setFinalVariants([]);
-                  setFinalVariants(
-                    finalVariants.filter(
-                      (final) =>
-                        Object.keys(final)[0] !== Object.keys(variant)[0] && {
-                          ...final,
-                        }
-                    )
-                  );
-                }}
-              />
-            </div>
-          </React.Fragment>
-        ))}
-      </span>
-    </label>
+        </span>
+      </label>
 
     {/* {JSON.stringify(product_store)} */}
     {error && <p>{error}</p>}
