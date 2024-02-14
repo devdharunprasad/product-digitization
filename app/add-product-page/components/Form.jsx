@@ -63,9 +63,6 @@ const FormSection = ({ formPage }) => {
   };
 
 
-  // Categories manipulation
-  const categories_tweaked = Array.isArray(product_store?.category) ? product_store?.category[0]?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","") :  product_store?.category?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","")
-  console.log({categories_tweaked})
 
 
   const onSubmit = async (data) => {
@@ -240,7 +237,7 @@ const FormSection = ({ formPage }) => {
         <input
           type="text"
           placeholder={formPage.category[langNum]}
-          defaultValue={Array.isArray(product_store?.category) ? categories[product_store?.category[0].toLowerCase().replaceAll(" ", "").replaceAll("&","n").replaceAll(",","")][langNum] : categories[product_store?.category.toLowerCase().replaceAll(" ", "").replaceAll("&","n").replaceAll(",","")][langNum]}
+          defaultValue={product_store?.category}
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />
