@@ -12,11 +12,11 @@ import {
 import Autoplay from "embla-carousel-autoplay"
 import { useLangNumStore } from "@/app/zustand/store";
 
-const LoadingPopup = () => {
+const LoadingPopup = ({image = false}) => {
 const {langNum} = useLangNumStore(state => state)
 
   return (
-    <section className="fixed top-0 transform -translate-y-[90%]  left-0 h-screen w-full max-w-[500px] z-40 bg-primary flex flex-col gap-5 items-center justify-center text-white">
+    <section className={`fixed top-0 transform  ${image === true && `-translate-y-[90%]` }  left-0 h-screen w-full max-w-[500px] z-40 bg-primary flex flex-col gap-5 items-center justify-center text-white`}>
       <Image
         src="/loader.png"
         alt="loader"

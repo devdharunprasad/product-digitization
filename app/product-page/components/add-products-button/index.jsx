@@ -60,7 +60,7 @@ const AddProducts = ({addProductButtonContent}) => {
 
   return (
     <>
-      {isLoading && <LoadingPopup />}
+      {isLoading && <LoadingPopup image = {true} />}
 
       <Popover className="flex justify-center items-center gap-3 ">
         <PopoverTrigger className="flex items-center justify-center gap-3 text-white h-12 bg-primary border w-8/12  px-5 py-2 mx-auto rounded-full">
@@ -96,10 +96,10 @@ const AddProducts = ({addProductButtonContent}) => {
                 className="w-full border  top-0  left-0 opacity-0 absolute z-30"
               />
             </div>
-            {/* <Link href="/voice-input" className="flex items-center gap-2 h-8">
+            <Link href="/voice-input" className="flex items-center gap-2 h-8">
               <Microphone size={20} />
-              <span>Voice Input</span>
-            </Link> */}
+              <span></span>
+            </Link>
           </PopoverContent>
         )}
       </Popover>

@@ -10,6 +10,7 @@ import axios from "axios";
 import SubmitButton from "./SubmitButton";
 import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/app/shared/loading/loading-spinner";
+import { categories } from "@/app/shared/utils/lang";
 
 const FormSection = ({ formPage }) => {
   const router = useRouter();
@@ -58,6 +59,12 @@ const FormSection = ({ formPage }) => {
 
     setFinalVariants(variants);
   };
+
+
+  // Categories manipulation
+  const categories_tweaked = product_store?.category?.toLowerCase().replaceAll("&","n").replaceAll(" ", "").replaceAll(",","")
+  console.log({categories_tweaked})
+
 
   const onSubmit = async (data) => {
     setIsLoading(true);
