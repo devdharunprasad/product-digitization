@@ -5,6 +5,7 @@ import SubmitButton from "./SubmitButton";
 import Link from "next/link";
 import { loginPage } from "@/app/shared/utils/lang";
 import { useLangNumStore } from "@/app/zustand/store";
+import ErrorLogin from "../error";
 
 const LoginForm = () => {
 
@@ -23,11 +24,13 @@ const LoginForm = () => {
           placeholder={loginPage.name_field[langNum]}
           className="border border-black h-12 w-full px-2 rounded-md"
           lang="tam"
+          defaultValue="seller"
           required
         />
         <input
           type="password"
           name="password"
+          defaultValue="seller123"
           placeholder={loginPage.pass_field[langNum]}
           className="border border-black h-12 w-full px-2 rounded-md"
           required

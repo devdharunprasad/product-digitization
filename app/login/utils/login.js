@@ -21,8 +21,8 @@ export const login = async (formData) => {
   );
   console.log(data)
   if (data) {
-    cookieStore.set("username", username);
-    cookieStore.set("password", password);
+    cookieStore.set("username", data?.username);
+    cookieStore.set("password", data?.password);
     cookieStore.set("uid", data?.user_id);
     cookieStore.set("lang", lang);
 
