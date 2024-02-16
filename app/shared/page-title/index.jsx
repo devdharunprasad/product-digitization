@@ -9,8 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import LanguageDropDown from "../languageDropdown";
+import { useLangNumStore } from "@/app/zustand/store";
+import { logoutContent } from "../utils/lang";
 
 const PageTitle = ({ title, icon, isDropDownVisible = false }) => {
+  const {langNum} = useLangNumStore(state => state)
   const router = useRouter();
   const handleLogout = () => {
     const hasLoggedOut = logout();
@@ -31,7 +34,7 @@ const PageTitle = ({ title, icon, isDropDownVisible = false }) => {
             <DotsThreeVertical size={32} color="white" />
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-col gap-2 p-2">
-            <p onClick={handleLogout}>Logout</p>
+            <p onClick={handleLogout}>{logoutContent[langNum]}</p>
             <LanguageDropDown />
           </DropdownMenuContent>
         </DropdownMenu>

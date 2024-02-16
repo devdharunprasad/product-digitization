@@ -361,6 +361,7 @@ const FormSection = ({ product_data }) => {
                 <input
                   className="w-10/12 outline-none"
                   onChange={(e) => updateVariant(e, Object.keys(variant)[0])}
+                  defaultValue = {Object.values(variant)[0]}
                   required
                 />
                 <Trash
