@@ -5,55 +5,133 @@
 // const lang = cookieStore.get("lang").value;
 const lang =  "eng"
 
-export const productTitle = ["Product Catalouge", "பொருட்களின் பட்டியல்", "उत्पाद सूची"]
-export const productError = ["No products found", "பொருட்கள் எதுவும் இல்லை", "कोई उत्पाद नहीं मिला"]
-export const addProductButton = ["Add Products", "பொருளைச் சேர்க்கவும்", "आइटम जोड़ें"]
-export const captureImage = ["Capture Image", "படம் பிடிக்கவும்", "छवि कैप्चर करें"]
-export const uploadImage = ["Upload Image", "பதிவேற்றம் செய்", "छवि अपलोड करें"]
-export const voiceInput = ["Voice Input", "குரல் உள்ளீடு", "आवाज़ डालना"]
-export const productItem = ["In Stock", "கையிருப்பில்", "स्टॉक में"]
-export const duplicate = ["Duplicate", "நகல்", "डुप्लिकेट"]
-export const logoutContent = ["Logout", "வெளியேறு", "लॉग आउट"]
+// export const productTitle = ["Product Catalouge", "பொருட்களின் பட்டியல்", "उत्पाद सूची"]
+// export const productError = ["No products found", "பொருட்கள் எதுவும் இல்லை", "कोई उत्पाद नहीं मिला"]
+// export const addProductButton = ["Add Products", "பொருளைச் சேர்க்கவும்", "आइटम जोड़ें"]
+// export const captureImage = ["Capture Image", "படம் பிடிக்கவும்", "छवि कैप्चर करें"]
+// export const uploadImage = ["Upload Image", "பதிவேற்றம் செய்", "छवि अपलोड करें"]
+// export const voiceInput = ["Voice Input", "குரல் உள்ளீடு", "आवाज़ डालना"]
+// export const productItem = ["In Stock", "கையிருப்பில்", "स्टॉक में"]
+// export const duplicate = ["Duplicate", "நகல்", "डुप्लिकेट"]
+// export const logoutContent = ["Logout", "வெளியேறு", "लॉग आउट"]
+// export const deleteContents = {
+//   trigger : ["Delete","அழி","मिटाना"],
+//   title : ["Do you want to delete it ?", "இதை நீக்க வேண்டுமா?", "क्या आप इसे हटाना चाहते हैं?"],
+//   yesButton : ["Yes", "ஆம்", "हाँ"],
+//   noButton : ["No", "இல்லை","नहीं" ]
+// }
+
+// export const loginPage = {
+//   title : ["Login", "உள்நுழைய", "लॉग इन करें"],
+//   name_field : ["Name", "பெயர்", "नाम"],
+//   pass_field: ["Password", "கடவுச்சொல்", "पासवर्ड"],
+//   button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"],
+//   isNew: ["New?", "புதியது?","नया"],
+//   register: ["register", "பதிவு செய்யுங்கள்","पंजीकरण करवाना"]
+// };
+
+// export const registerPage = {
+//   title : ["Register", "பதிவு செய்", "पंजीकरण करवाना"],
+//   name_field : ["Name", "பெயர்", "नाम"],
+//   pass_field: ["Password", "கடவுச்சொல்", "पासवर्ड"],
+//   button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"],
+//   isNew: ["Already Registered?", "ஏற்கனவே பதிவு செய்யப்பட்டது?", "पहले से ही रजिस्टर करें?"],
+//   login: ["login", "உள்நுழைய","लॉग इन करें"]
+// }
+
+// export const loadingMessages = {
+//   network: ["Network", "நெட்வொர்க்", "नेटवर्क"],
+//   message:[[
+//     "ONDC Network: Empowering small businesses, one digital step at a time.",
+//     "Unlocking opportunities: ONDC Network bridges the gap between buyers and sellers effortlessly.",
+//     "Joining hands for progress: ONDC Network fosters inclusive growth in India's digital marketplace",
+//     "Simplicity meets innovation: ONDC Network revolutionizes e-commerce for all.",
+//     "Transforming dreams into reality: ONDC Network paves the way for entrepreneurial success."
+//   ],
+//   [
+//     "ONDC நெட்வொர்க்: ஒரு இலக்கியத் தடவையை அதிகரிக்கும் சிறு வணிகங்கள்.",
+//     "வாய்ப்புகளை திறக்கும்: ONDC நெட்வொர்க் வாங்குபவர்களுக்கும் விற்பவர்களுக்கும் கலப்படுகின்றது.",
+//     "முன்னேற்றத்திற்கான கைக்கூட்டம்: ONDC நெட்வொர்க் இந்தியாவின் இணைய சந்தையில் உள்ள மொத்த வளர்ச்சியை ஊக்குவிக்கின்றது.",
+//     "எளியத்துடன் புதுமை சந்தித்தது: ONDC நெட்வொர்க் அனைத்தும் தனிப்பட்ட முறையில் மின்-வாணியத்தை முறியடிக்கின்றது.",
+//     "கனவுகளை உண்மையாக்குவது: ONDC நெட்வொர்க் உயர்தர வெற்றிக்கு வழிவகுக்கின்றது."
+//   ],
+//   [
+//     "ONDC नेटवर्क: छोटे व्यवसायों को एक डिजिटल कदम की शक्ति देते हुए।",
+//     "अवसरों को खोलना: ONDC नेटवर्क आसानी से खरीददारों और विक्रेताओं के बीच का अंतर पार करता है।",
+//     "तरक्की के लिए हाथ मिलाना: ONDC नेटवर्क भारत के डिजिटल बाजार में समावेशी विकास को बढ़ावा देता है।",
+//     "सरलता और नवाचार मिलना: ONDC नेटवर्क सभी के लिए ई-कॉमर्स को क्रांति करता है।",
+//     "सपनों को वास्तविकता में बदलना: ONDC नेटवर्क उद्यमिता सफलता के लिए मार्ग बनाता है।"
+//   ]
+
+// ]
+// };
+
+// export const formPage = {
+//   title : ["Add Item", "பொருளைச் சேர்க்கவும்", "आइटम जोड़ें"],
+//   item_name : ["Item Name", "பொருளின் பெயர்", "नाम"], 
+//   sku_id : ["SKU id", "SKU ஐடி", "एसकेयू आईडी"],
+//   description : ["Description", "விளக்கம்", "विवरण"],
+//   quantity : ["In Stock", "பொருட்கள் எண்ணிக்கை", "आइटम गिनती"],
+//   price  : ["Price", "விலை", "मूल्य"],
+//   discount_price : ["Discount Price", "தள்ளுபடி விலை", "डिस्काउंट मूल्य"],
+//   category : ["Category", "வகை", "श्रेणी"],
+//   sub_category : ["Sub Category", "துணை வகை", "उपश्रेणी"],
+//   variants : ["Variant", "மாறுபாடுகள்", "वेरिएंट"],
+//   button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"]
+// }
+
+// export const categories = {
+//   fruitsnvegetables: ["Fruits & Vegetables", "பழங்கள் & காய்கறிகள்", "फल और सब्जियाँ"],
+//   foodgrainsoilnmasala: ["Foodgrains, Oil & Masala", "பழுப்புகள், எண்ணெய் & மசாலா", "अनाज, तेल और मसाला"],
+//   bakerycakesndairy: ["Bakery, Cakes & Dairy", "பேக்கரி, கேக்ஸ் & டேரி", "बेकरी, केक और डेयरी"],
+//   beverages: ["Beverages", "பானங்கள்", "पेय"],
+//   snacksnbrandedfoods: ["Snacks & Branded Foods", "உணவு சுருக்கங்கள் & பிராண்டெட் உணவுகள்", "स्नैक्स और ब्रांडेड खाद्य"],
+//   beautynhygiene: ["Beauty & Hygiene", "அழகு & சுத்தம்", "सौंदर्य और स्वच्छता"],
+//   cleaningnhousehold: ["Cleaning & Household", "சுத்தம் & வீட்டு பொருள்கள்", "सफाई और घरेलू"]
+// };
+
+export const productTitle = ["Product Catalouge",  "उत्पाद सूची"]
+export const productError = ["No products found", "कोई उत्पाद नहीं मिला"]
+export const addProductButton = ["Add Products",  "आइटम जोड़ें"]
+export const captureImage = ["Capture Image", "छवि कैप्चर करें"]
+export const uploadImage = ["Upload Image",  "छवि अपलोड करें"]
+export const voiceInput = ["Voice Input",  "आवाज़ डालना"]
+export const productItem = ["In Stock",  "स्टॉक में"]
+export const duplicate = ["Duplicate",  "डुप्लिकेट"]
+export const logoutContent = ["Logout",  "लॉग आउट"]
 export const deleteContents = {
-  trigger : ["Delete","அழி","मिटाना"],
-  title : ["Do you want to delete it ?", "இதை நீக்க வேண்டுமா?", "क्या आप इसे हटाना चाहते हैं?"],
-  yesButton : ["Yes", "ஆம்", "हाँ"],
-  noButton : ["No", "இல்லை","नहीं" ]
+  trigger : ["Delete","मिटाना"],
+  title : ["Do you want to delete it ?", "क्या आप इसे हटाना चाहते हैं?"],
+  yesButton : ["Yes",  "हाँ"],
+  noButton : ["No", "नहीं" ]
 }
 
 export const loginPage = {
-  title : ["Login", "உள்நுழைய", "लॉग इन करें"],
-  name_field : ["Name", "பெயர்", "नाम"],
-  pass_field: ["Password", "கடவுச்சொல்", "पासवर्ड"],
-  button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"],
-  isNew: ["New?", "புதியது?","नया"],
-  register: ["register", "பதிவு செய்யுங்கள்","पंजीकरण करवाना"]
+  title : ["Login", "लॉग इन करें"],
+  name_field : ["Name",  "नाम"],
+  pass_field: ["Password", "पासवर्ड"],
+  button : ["Submit",  "जमा करना"],
+  isNew: ["New?","नया"],
+  register: ["register", "पंजीकरण करवाना"]
 };
 
 export const registerPage = {
-  title : ["Register", "பதிவு செய்", "पंजीकरण करवाना"],
-  name_field : ["Name", "பெயர்", "नाम"],
-  pass_field: ["Password", "கடவுச்சொல்", "पासवर्ड"],
-  button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"],
-  isNew: ["Already Registered?", "ஏற்கனவே பதிவு செய்யப்பட்டது?", "पहले से ही रजिस्टर करें?"],
-  login: ["login", "உள்நுழைய","लॉग इन करें"]
+  title : ["Register", "पंजीकरण करवाना"],
+  name_field : ["Name",  "नाम"],
+  pass_field: ["Password",  "पासवर्ड"],
+  button : ["Submit",  "जमा करना"],
+  isNew: ["Already Registered?", "पहले से ही रजिस्टर करें?"],
+  login: ["login","लॉग इन करें"]
 }
 
 export const loadingMessages = {
-  network: ["Network", "நெட்வொர்க்", "नेटवर्क"],
+  network: ["Network","नेटवर्क"],
   message:[[
     "ONDC Network: Empowering small businesses, one digital step at a time.",
     "Unlocking opportunities: ONDC Network bridges the gap between buyers and sellers effortlessly.",
     "Joining hands for progress: ONDC Network fosters inclusive growth in India's digital marketplace",
     "Simplicity meets innovation: ONDC Network revolutionizes e-commerce for all.",
     "Transforming dreams into reality: ONDC Network paves the way for entrepreneurial success."
-  ],
-  [
-    "ONDC நெட்வொர்க்: ஒரு இலக்கியத் தடவையை அதிகரிக்கும் சிறு வணிகங்கள்.",
-    "வாய்ப்புகளை திறக்கும்: ONDC நெட்வொர்க் வாங்குபவர்களுக்கும் விற்பவர்களுக்கும் கலப்படுகின்றது.",
-    "முன்னேற்றத்திற்கான கைக்கூட்டம்: ONDC நெட்வொர்க் இந்தியாவின் இணைய சந்தையில் உள்ள மொத்த வளர்ச்சியை ஊக்குவிக்கின்றது.",
-    "எளியத்துடன் புதுமை சந்தித்தது: ONDC நெட்வொர்க் அனைத்தும் தனிப்பட்ட முறையில் மின்-வாணியத்தை முறியடிக்கின்றது.",
-    "கனவுகளை உண்மையாக்குவது: ONDC நெட்வொர்க் உயர்தர வெற்றிக்கு வழிவகுக்கின்றது."
   ],
   [
     "ONDC नेटवर्क: छोटे व्यवसायों को एक डिजिटल कदम की शक्ति देते हुए।",
@@ -67,17 +145,17 @@ export const loadingMessages = {
 };
 
 export const formPage = {
-  title : ["Add Item", "பொருளைச் சேர்க்கவும்", "आइटम जोड़ें"],
-  item_name : ["Item Name", "பொருளின் பெயர்", "नाम"], 
-  sku_id : ["SKU id", "SKU ஐடி", "एसकेयू आईडी"],
-  description : ["Description", "விளக்கம்", "विवरण"],
-  quantity : ["In Stock", "பொருட்கள் எண்ணிக்கை", "आइटम गिनती"],
-  price  : ["Price", "விலை", "मूल्य"],
-  discount_price : ["Discount Price", "தள்ளுபடி விலை", "डिस्काउंट मूल्य"],
-  category : ["Category", "வகை", "श्रेणी"],
-  sub_category : ["Sub Category", "துணை வகை", "उपश्रेणी"],
-  variants : ["Variant", "மாறுபாடுகள்", "वेरिएंट"],
-  button : ["Submit", "சமர்ப்பிக்கவும்", "जमा करना"]
+  title : ["Add Item",  "आइटम जोड़ें"],
+  item_name : ["Item Name",  "नाम"], 
+  sku_id : ["SKU id", "एसकेयू आईडी"],
+  description : ["Description",  "विवरण"],
+  quantity : ["In Stock",  "आइटम गिनती"],
+  price  : ["Price",  "मूल्य"],
+  discount_price : ["Discount Price", "डिस्काउंट मूल्य"],
+  category : ["Category",  "श्रेणी"],
+  sub_category : ["Sub Category",  "उपश्रेणी"],
+  variants : ["Variant", "वेरिएंट"],
+  button : ["Submit", "जमा करना"]
 }
 
 export const categories = {

@@ -263,7 +263,7 @@ const FormSection = ({ product_data }) => {
                     .replaceAll("&", "n")
                     .replaceAll(",", "")
                 ][langNum]
-          }
+          }  
           className="border border-gray-400 w-full h-14 px-3 rounded-lg"
           {...register("category", { required: true })}
         />

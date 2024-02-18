@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import React from "react";
 
-const LANG = ["English", "தமிழ்", "हिंदी"];
+const LANG = ["English", "हिंदी"];
 
 const LanguageDropDown = () => {
   const { langNum, changeLangNum } = useLangNumStore((state) => state);
